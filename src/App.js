@@ -1,18 +1,20 @@
 import React from 'react';
-import Header from "./layouts/header";
-import Home from './pages/home'
-import Login from './pages/login'
-import Register from './pages/register'
-import { Switch } from 'react-router-dom';
-import Verification from './pages/verification'
-import RouteWithSubRoutes from './components/RouteWithSubRoutes'
-import {AppMain} from "./styles/app";
+
+import { Router, Route, Switch } from "react-router-dom";
+
+import indexRoutes from "routes/index.jsx";
+
+import Pages from "layouts/Pages.jsx";
+
+// import Home from './pages/home';
+// import Login from './pages/LoginPage';
+// import Register from './pages/register'
+// import Verification from './pages/verification';
+// import RouteWithSubRoutes from './components/RouteWithSubRoutes';
+// import {AppMain} from "./styles/app";
 
 const pageList = [
-  { component: Home, path: '/' },
-  { component: Login, path: '/login' },
-  { component: Register, path: '/register'},
-  { component: Verification, path: '/verification' }
+  { path: "/pages", name: "Pages", component: Pages },
 ];
  
 const App = () => (
@@ -20,11 +22,14 @@ const App = () => (
     {/* <Header/> */}
       {/* <BodyPageStyled> */}
       <Switch>
-        {
+        {/* {
           pageList.map(({ exact, ...item }) => (
             <RouteWithSubRoutes key={item.path} exact={true} {...item} />
           ))
-        }
+        } */}
+        {indexRoutes.map((prop, key) => {
+        return <Route path={prop.path} component={prop.component} key={key} />;
+      })}
       </Switch>
       {/* </BodyPageStyled> */}
     {/* <Footer /> */}

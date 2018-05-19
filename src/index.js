@@ -1,7 +1,9 @@
 import React from 'react';
 import { reducer as form } from 'redux-form';
 import ReactDOM from 'react-dom';
-import './index.css';
+
+import "assets/scss/material-dashboard-pro-react.css?v=1.1.0";
+
 import App from './App';
 import { Provider } from 'react-redux';
 import { init } from '@rematch/core';
