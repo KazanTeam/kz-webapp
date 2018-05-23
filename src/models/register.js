@@ -10,6 +10,8 @@ export default {
         password: '',
         telegramUsername: '',
         phoneNumber: '',
+        firstName: '',
+        lastName:'',
     },
     reducers: {
     },
@@ -17,10 +19,10 @@ export default {
       async registerAsync(payload) {
         try {
           const {username, email, password, telegramUsername, phoneNumber} = payload;
-          
+
           await Auth.signUp({
-            username, 
-            password, 
+            username,
+            password,
             attributes: {
               'email': email,
               'phone_number': phoneNumber,
@@ -33,8 +35,8 @@ export default {
           });
           dispatch(push('/verification'));
         } catch (err) {
-          console.log(err); 
-          throw new SubmissionError({_error: err.message}) 
+          console.log(err);
+          throw new SubmissionError({_error: err.message})
         }
       }
     }

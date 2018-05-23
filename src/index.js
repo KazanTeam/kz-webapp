@@ -13,6 +13,7 @@ import registerServiceWorker from './registerServiceWorker';
 import awsmobile from './aws-exports';
 import Amplify from 'aws-amplify';
 import * as models from './models';
+import selectorsPlugin, {select} from '@rematch/select'
 
 export {default as config }  from './config';
 
@@ -27,7 +28,8 @@ const store = init({
     reducers: {
       form
     }
-  }
+  },
+  plugins: [selectorsPlugin()]
 });
 
 ReactDOM.render(

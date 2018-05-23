@@ -1,6 +1,6 @@
 // import PricingPage from "views/Pages/PricingPage.jsx";
 import LoginPage from "pages/LoginPage.jsx";
-// import RegisterPage from "views/Pages/RegisterPage.jsx";
+import RegisterPage from "pages/register-page/RegisterPage";
 // import LockScreenPage from "views/Pages/LockScreenPage.jsx";
 
 // @material-ui/icons
@@ -8,24 +8,33 @@ import PersonAdd from "@material-ui/icons/PersonAdd";
 import Fingerprint from "@material-ui/icons/Fingerprint";
 import MonetizationOn from "@material-ui/icons/MonetizationOn";
 import LockOpen from "@material-ui/icons/LockOpen";
+import GroupPage from "../pages/group-page/GroupPage";
 
 const pagesRoutes = [
-  // {
-  //   path: "/pages/register-page",
-  //   name: "Register Page",
-  //   short: "Register",
-  //   mini: "RP",
-  //   icon: PersonAdd,
-  //   component: RegisterPage
-  // },
   {
-    path: "/pages/login-page",
+    path: "/register-page",
+    name: "Register Page",
+    short: "Register",
+    mini: "RP",
+    icon: PersonAdd,
+    component: RegisterPage
+  },
+  {
+    path: "/login-page",
     name: "Login Page",
     short: "Login",
     mini: "LP",
     icon: Fingerprint,
     component: LoginPage
   },
+  {
+    path: "/group-page",
+    name: "Group Page",
+    short: "Group",
+    mini: "GP",
+    icon: Fingerprint,
+    component: GroupPage
+  }
   // {
   //   path: "/pages/pricing-page",
   //   name: "Pricing Page",
