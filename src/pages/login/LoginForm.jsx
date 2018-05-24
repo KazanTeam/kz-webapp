@@ -1,50 +1,125 @@
 import React from 'react';
-import Button from 'material-ui/Button';
-import {Default as DefaultButton} from "../../styles/button";
-import { Field, reduxForm } from 'redux-form'
-import {Container, LoginContent} from "../../styles/form/styled";
-import {GridStyled} from  "./styled"
-import Grid from "material-ui/Grid";
-import Link from "react-router-dom/Link";
-import TextField from '../../components/render-fields/TextField';
+import { Field, reduxForm} from 'redux-form';
 
-class LoginForm extends React.PureComponent {
+// material-ui components
+import InputAdornment from "material-ui/Input/InputAdornment";
+
+// @material-ui/icons
+import Face from "@material-ui/icons/Face";
+import LockOutline from "@material-ui/icons/LockOutline";
+
+// core components
+import GridContainer from "components/Grid/GridContainer.jsx";
+import ItemGrid from "components/Grid/ItemGrid.jsx";
+import LoginCard from "components/Cards/LoginCard.jsx";
+import CustomInput from "components/CustomInput/CustomInput.jsx";
+import Button from "components/CustomButtons/Button.jsx";
+
+const renderCustomInput = ({
+  inputProps,
+  input,
+  ...custom
+}) => {
+  inputProps = {...inputProps, ...input};
+  return <CustomInput        
+      {...custom}
+      inputProps={inputProps}
+  />
+};
+
+class LoginForm extends React.Component {
+
+  constructor(props) {
+    super(props);
+    // we use this to make the card to appear after the page has been rendered
+    this.state = {
+      cardAnimaton: "cardHidden"
+    };
+  }
+  componentDidMount() {
+    // we add a hidden class to the card and after 700 ms we delete it and the transition appears
+    setTimeout(
+      function() {
+        this.setState({ cardAnimaton: "" });
+      }.bind(this),
+      700
+    );
+  }
 
   render() {
-    const {handleSubmit, error, submitting} = this.props;
+    const {handleSubmit, error, submitting, classes} = this.props;
     return (
-      <Container>
-        <LoginContent>
+      <GridContainer justify="center">
+        <ItemGrid xs={12} sm={6} md={4}>
           <form onSubmit={handleSubmit}>
-          <Grid container spacing={24} >
-            <Grid item xs={12}>
-              <Field
-                fullWidth
-                name="username"
-                component={TextField}
-                label="Username"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Field
-                fullWidth
-                name="password"
-                component={TextField}
-                label="Password"
-                type="password"
-              />
-            </Grid>
-            <GridStyled item xs={12}>
-              <DefaultButton type="submit" loading={submitting} variant="raised" color="primary">
-                Login
-              </DefaultButton>
-              <span>{error}</span>
-              <Link to="/register"><Button color="secondary">REGISTER</Button></Link>
-            </GridStyled>
-          </Grid>
-        </form>
-        </LoginContent>
-      </Container>
+            <LoginCard
+              customCardClass={classes[this.state.cardAnimaton]}
+              headerColor="rose"
+              cardTitle="Login"
+              cardSubtitle="Or Be Classical"
+              footerAlign="center"
+              footer={
+                <Button type="submit" color="roseNoBackground" wd size="lg">
+                  Let's Go
+                </Button>
+              }
+              socials={[
+                "fab fa-facebook-square",
+                "fab fa-twitter",
+                "fab fa-google-plus"
+              ].map((prop, key) => {
+                return (
+                  <Button
+                    color="simple"
+                    justIcon
+                    key={key}
+                    customClass={classes.customButtonClass}
+                  >
+                    <i className={prop} />
+                  </Button>
+                );
+              })}
+              content={
+                <div>
+                  <Field
+                    labelText="Username"                    
+                    name="username"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    inputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <Face className={classes.inputAdornmentIcon} />
+                        </InputAdornment>
+                      )
+                    }}
+                    component={renderCustomInput}
+                  />                      
+                  <Field
+                    labelText="Password"
+                    name="password"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    inputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <LockOutline
+                            className={classes.inputAdornmentIcon}
+                          />
+                        </InputAdornment>
+                      ),
+                      type: "password"
+                    }}
+                    component={renderCustomInput}
+                  />
+                </div>
+              }
+            />
+          </form>
+        </ItemGrid>
+      </GridContainer>
     );
   }
 }

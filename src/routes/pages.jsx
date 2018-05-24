@@ -1,6 +1,8 @@
 // import PricingPage from "views/Pages/PricingPage.jsx";
 import LoginPage from "pages/LoginPage.jsx";
 import RegisterPage from "pages/register-page/RegisterPage";
+import LoginPage from "pages/login";
+// import RegisterPage from "views/Pages/RegisterPage.jsx";
 // import LockScreenPage from "views/Pages/LockScreenPage.jsx";
 
 // @material-ui/icons
@@ -57,6 +59,7 @@ const pagesRoutes = [
   //   pathTo: "/pages/register-page",
   //   name: "Register Page"
   // }
+  { redirect: true, path: "/", pathTo: "/pages/login-page", name: "LoginPage" }
 ];
 
 export default pagesRoutes;
