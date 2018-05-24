@@ -22,6 +22,7 @@ import Dashboard from "pages/dashboard/Dashboard.jsx";
 // import UserProfile from "views/Pages/UserProfile.jsx";
 // import TimelinePage from "views/Pages/Timeline.jsx";
 // import RTLSupport from "views/Pages/RTLSupport.jsx";
+import Verification from 'pages/verification';
 
 import pagesRoutes from "./pages.jsx";
 
@@ -72,52 +73,21 @@ var dashRoutes = [
   //   icon: Image,
   //   views: pages
   // },
-  // {
-  //   collapse: true,
-  //   path: "/components",
-  //   name: "Components",
-  //   state: "openComponents",
-  //   icon: Apps,
-  //   views: [
-  //     {
-  //       path: "/components/buttons",
-  //       name: "Buttons",
-  //       mini: "B",
-  //       component: Buttons
-  //     },
-  //     {
-  //       path: "/components/grid-system",
-  //       name: "Grid System",
-  //       mini: "GS",
-  //       component: GridSystem
-  //     },
-  //     {
-  //       path: "/components/panels",
-  //       name: "Panels",
-  //       mini: "P",
-  //       component: Panels
-  //     },
-  //     {
-  //       path: "/components/sweet-alert",
-  //       name: "Sweet Alert",
-  //       mini: "SA",
-  //       component: SweetAlert
-  //     },
-  //     {
-  //       path: "/components/notifications",
-  //       name: "Notifications",
-  //       mini: "N",
-  //       component: Notifications
-  //     },
-  //     { path: "/components/icons", name: "Icons", mini: "I", component: Icons },
-  //     {
-  //       path: "/components/typography",
-  //       name: "Typography",
-  //       mini: "T",
-  //       component: Typography
-  //     }
-  //   ]
-  // },
+  {
+    collapse: true,
+    path: "/components",
+    name: "Components",
+    state: "openComponents",
+    icon: Apps,
+    views: [
+      {
+        path: "/components/buttons",
+        name: "Buttons",
+        mini: "B",
+        component: Verification
+      }
+    ]
+  },
   // {
   //   collapse: true,
   //   path: "/forms",
@@ -203,6 +173,6 @@ var dashRoutes = [
   // { path: "/widgets", name: "Widgets", icon: WidgetsIcon, component: Widgets },
   // { path: "/charts", name: "Charts", icon: Timeline, component: Charts },
   // { path: "/calendar", name: "Calendar", icon: DateRange, component: Calendar },
-  // { redirect: true, path: "/", pathTo: "/dashboard", name: "Dashboard" }
+  { redirect: true, path: "/", pathTo: "/dashboard", name: "Dashboard" }
 ];
 export default dashRoutes;

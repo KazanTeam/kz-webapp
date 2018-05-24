@@ -59,7 +59,7 @@ const pagesRoutes = [
   //   pathTo: "/pages/register-page",
   //   name: "Register Page"
   // }
-  { redirect: true, path: "/", pathTo: "/pages/login-page", name: "LoginPage" }
+  // { redirect: true, path: "/", pathTo: "/pages/login-page", name: "LoginPage" }
 ];
 
 export default pagesRoutes;
