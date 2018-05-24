@@ -4,18 +4,12 @@ import { Router, Route, Switch } from "react-router-dom";
 
 import indexRoutes from "routes/index.jsx";
 
-import Pages from "layouts/Pages.jsx";
-
 // import Home from './pages/home';
 // import Login from './pages/LoginPage';
 // import Register from './pages/register'
 // import Verification from './pages/verification';
 // import RouteWithSubRoutes from './components/RouteWithSubRoutes';
 // import {AppMain} from "./styles/app";
-
-const pageList = [
-  { path: "/pages", name: "Pages", component: Pages },
-];
  
 const App = () => (
   <div>
