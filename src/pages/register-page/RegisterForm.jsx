@@ -43,14 +43,6 @@ class RegisterForm extends React.Component {
 
   render() {
     const { classes, handleSubmit, submitting } = this.props;
-    const ext = (
-      <Field
-        name="ext"
-        component="input"
-        type="number"
-        noValidate
-      />
-    );
     return (
       <div className={classes.container} >
         <GridContainer justify="center" spacing={8}>

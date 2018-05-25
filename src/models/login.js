@@ -18,7 +18,6 @@ export default {
         const data = await Auth.signIn(username, password);
         isUserLoggedIn(true);
         setUsername(data.username);
-        console.log('/dashboard');
         dispatch(push('/dashboard'));
       } catch(err) {
         if (err.code === 'UserNotConfirmedException') {

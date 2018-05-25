@@ -19,7 +19,6 @@ export default {
       async registerAsync(payload) {
         try {
           const {username, email, password, telegramUsername, phoneNumber} = payload;
-
           await Auth.signUp({
             username,
             password,
@@ -33,7 +32,8 @@ export default {
             username: username,
             password: password
           });
-          dispatch(push('/verification'));
+
+          dispatch(push('/pages/verification'));
         } catch (err) {
           console.log(err);
           throw new SubmissionError({_error: err.message})

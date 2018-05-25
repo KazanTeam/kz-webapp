@@ -6,7 +6,9 @@ import LoginPage from "pages/login";
 
 // @material-ui/icons
 import PersonAdd from "@material-ui/icons/PersonAdd";
+import MonetizationOn from "@material-ui/icons/MonetizationOn";
 import Fingerprint from "@material-ui/icons/Fingerprint";
+import Verification from "../pages/verification/Verification";
 
 const pagesRoutes = [
   {
@@ -24,15 +26,16 @@ const pagesRoutes = [
     mini: "LP",
     icon: Fingerprint,
     component: LoginPage
-  }
-  // {
-  //   path: "/pages/pricing-page",
-  //   name: "Pricing Page",
-  //   short: "Pricing",
-  //   mini: "PP",
-  //   icon: MonetizationOn,
-  //   component: PricingPage
-  // },
+  },
+  {
+    path: "/pages/verification",
+    name: "Verification",
+    short: "Verify",
+    mini: "V",
+    icon: MonetizationOn,
+    component: Verification,
+    invisible: true
+  },
   // {
   //   path: "/pages/lock-screen-page",
   //   name: "Lock Screen Page",

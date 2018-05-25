@@ -58,6 +58,9 @@ class PagesHeader extends React.Component {
           </NavLink>
         </ListItem>
         {pagesRoutes.map((prop, key) => {
+          if(prop.invisible) {
+            return null;
+          }
           if (prop.redirect) {
             return null;
           }

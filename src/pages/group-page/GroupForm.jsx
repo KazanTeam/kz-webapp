@@ -30,28 +30,9 @@ import registerPageStyle from "assets/jss/material-dashboard-pro-react/views/reg
 class GroupForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      checked: [],
-      phone: ''
-    };
   }
-  openInNewTab = (e) => {
-    e.preventDefault();
-    const win = window.open("http://t.me/KazanTradingBot", '_blank');
-    win.focus();
-  };
-
   render() {
-    console.log(this.props);
     const { classes, handleSubmit, submitting, isCreated } = this.props;
-    const ext = (
-      <Field
-        name="ext"
-        component="input"
-        type="number"
-        noValidate
-      />
-    );
     return (
       <div className={classes.container} >
         <GridContainer justify="center" spacing={8}>

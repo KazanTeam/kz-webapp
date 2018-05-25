@@ -15,7 +15,6 @@ import IconCard from "components/Cards/IconCard.jsx";
 import IconButton from "components/CustomButtons/IconButton.jsx";
 
 import { dataTable } from "variables/general.jsx";
-import {Link} from "react-router-dom";
 import {push} from "react-router-redux";
 import { dispatch } from '@rematch/core';
 
@@ -99,15 +98,15 @@ class GroupTable extends React.Component{
                     accessor: "name",
                   },
                   {
-                    Header: "Position",
+                    Header: "Notify Bot",
                     accessor: "position"
                   },
                   {
-                    Header: "Office",
+                    Header: "Alert Bot",
                     accessor: "office"
                   },
                   {
-                    Header: "Age",
+                    Header: "Link Join Group",
                     accessor: "age"
                   },
                   {
@@ -117,9 +116,9 @@ class GroupTable extends React.Component{
                     filterable: false,
                   }
                 ]}
-                defaultPageSize={10}
-                showPaginationTop
-                showPaginationBottom={false}
+                defaultPageSize={5}
+                // showPaginationTop
+                showPaginationBottom
                 className="-striped -highlight"
               />
             }
