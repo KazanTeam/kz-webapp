@@ -1,5 +1,6 @@
 import Pages from "layouts/Pages.jsx";
 import Dashboard from "layouts/Dashboard.jsx";
+import GroupPage from "../pages/group-page/GroupPage";
 
 // var indexRoutes = [
 //   // { path: "/rtl", name: "RTL", component: RTL },
@@ -9,7 +10,7 @@ import Dashboard from "layouts/Dashboard.jsx";
 
 var indexRoutes = [
   { path: "/pages", name: "Pages", component: Pages },
-  { path: "/", name: "Home", component: Dashboard }
+  { path: "/", name: "Home", component: Dashboard },
 ];
 
 export default indexRoutes;

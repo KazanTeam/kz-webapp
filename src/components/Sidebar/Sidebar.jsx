@@ -64,6 +64,7 @@ class Sidebar extends React.Component {
       openTables: this.activeRoute("/tables"),
       openMaps: this.activeRoute("/maps"),
       openPages: this.activeRoute("-page"),
+      openGroups: this.activeRoute("/groups"),
       miniActive: true
     };
     this.activeRoute.bind(this);
@@ -222,6 +223,7 @@ class Sidebar extends React.Component {
     var links = (
       <List className={classes.list}>
         {routes.map((prop, key) => {
+          if(prop.invisible) return null;
           if (prop.redirect) {
             return null;
           }

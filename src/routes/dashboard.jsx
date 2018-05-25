@@ -12,7 +12,7 @@ import Dashboard from "pages/dashboard/Dashboard.jsx";
 // import Wizard from "views/Forms/Wizard.jsx";
 // import RegularTables from "views/Tables/RegularTables.jsx";
 // import ExtendedTables from "views/Tables/ExtendedTables.jsx";
-// import ReactTables from "views/Tables/ReactTables.jsx";
+// import GroupTable from "views/Tables/GroupTable.jsx";
 // import GoogleMaps from "views/Maps/GoogleMaps.jsx";
 // import FullScreenMap from "views/Maps/FullScreenMap.jsx";
 // import VectorMap from "views/Maps/VectorMap.jsx";
@@ -36,6 +36,8 @@ import Place from "@material-ui/icons/Place";
 import WidgetsIcon from "@material-ui/icons/Widgets";
 import Timeline from "@material-ui/icons/Timeline";
 import DateRange from "@material-ui/icons/DateRange";
+import GroupPage from "../pages/group-page/GroupPage";
+import GroupTable from "../pages/group-page/table/GroupTable";
 
 // var pages = [
 //   {
@@ -73,49 +75,9 @@ var dashRoutes = [
   //   icon: Image,
   //   views: pages
   // },
-  {
-    collapse: true,
-    path: "/components",
-    name: "Components",
-    state: "openComponents",
-    icon: Apps,
-    views: [
-      {
-        path: "/components/buttons",
-        name: "Buttons",
-        mini: "B",
-        component: Verification
-      }
-    ]
-  },
-  // {
-  //   collapse: true,
-  //   path: "/forms",
-  //   name: "Forms",
-  //   state: "openForms",
-  //   icon: ContentPaste,
-  //   views: [
-  //     {
-  //       path: "/forms/regular-forms",
-  //       name: "Regular Forms",
-  //       mini: "RF",
-  //       component: RegularForms
-  //     },
-  //     {
-  //       path: "/forms/extended-forms",
-  //       name: "Extended Forms",
-  //       mini: "EF",
-  //       component: ExtendedForms
-  //     },
-  //     {
-  //       path: "/forms/validation-forms",
-  //       name: "Validation Forms",
-  //       mini: "VF",
-  //       component: ValidationForms
-  //     },
-  //     { path: "/forms/wizard", name: "Wizard", mini: "W", component: Wizard }
-  //   ]
-  // },
+  { path: "/groups/list", name: "Groups", icon: ContentPaste, component: GroupTable },
+  { path: "/groups/create", name: "Create Group", icon: ContentPaste, component: GroupPage , invisible: true},
+  // { path: "/create", name: "Create Group", icon: ContentPaste, component: GroupPage , invisible: true},
   // {
   //   collapse: true,
   //   path: "/tables",
@@ -139,7 +101,7 @@ var dashRoutes = [
   //       path: "/tables/react-tables",
   //       name: "React Tables",
   //       mini: "RT",
-  //       component: ReactTables
+  //       component: GroupTable
   //     }
   //   ]
   // },

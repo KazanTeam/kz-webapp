@@ -1,5 +1,4 @@
 // import PricingPage from "views/Pages/PricingPage.jsx";
-import LoginPage from "pages/LoginPage.jsx";
 import RegisterPage from "pages/register-page/RegisterPage";
 import LoginPage from "pages/login";
 // import RegisterPage from "views/Pages/RegisterPage.jsx";
@@ -8,13 +7,10 @@ import LoginPage from "pages/login";
 // @material-ui/icons
 import PersonAdd from "@material-ui/icons/PersonAdd";
 import Fingerprint from "@material-ui/icons/Fingerprint";
-import MonetizationOn from "@material-ui/icons/MonetizationOn";
-import LockOpen from "@material-ui/icons/LockOpen";
-import GroupPage from "../pages/group-page/GroupPage";
 
 const pagesRoutes = [
   {
-    path: "/register-page",
+    path: "/pages/register-page",
     name: "Register Page",
     short: "Register",
     mini: "RP",
@@ -22,20 +18,12 @@ const pagesRoutes = [
     component: RegisterPage
   },
   {
-    path: "/login-page",
+    path: "/pages/login-page",
     name: "Login Page",
     short: "Login",
     mini: "LP",
     icon: Fingerprint,
     component: LoginPage
-  },
-  {
-    path: "/group-page",
-    name: "Group Page",
-    short: "Group",
-    mini: "GP",
-    icon: Fingerprint,
-    component: GroupPage
   }
   // {
   //   path: "/pages/pricing-page",
