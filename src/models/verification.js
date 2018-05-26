@@ -1,6 +1,7 @@
 import { dispatch } from '@rematch/core'
 import { Auth } from 'aws-amplify';
 import {push} from "react-router-redux";
+import {SubmissionError} from "redux-form";
 
 export const selectors = {
   getCredential: state => state.verification.credential
@@ -23,9 +24,9 @@ export default {
       try {
         const {username} = selectors.getCredential(rootState);
         await Auth.confirmSignUp(username, code);
-        dispatch(push("/"))
+        dispatch(push("/pages/login-page"))
       } catch(err) {
-        console.log(err);
+        throw new SubmissionError({error: err.message});
       }
     },
     async resendSignUpAsync(payload, rootState) {

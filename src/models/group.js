@@ -1,6 +1,7 @@
 import {dispatch} from '@rematch/core';
 import {push} from "react-router-redux";
 import {SubmissionError} from "redux-form";
+import groupService from 'services/GroupService.js'
 
 export default {
   state: {
@@ -21,10 +22,13 @@ export default {
   effects: {
     async groupAsync(payload) {
       try {
-        const {name, creator} = payload;
+        const {name, groupNotifyBot, groupAlertBot} = payload;
 
         this.setIsCreated({isCreated: true});
-        //todo: call api create group
+
+        groupService.createGroup(payload);
+
+        return dispatch(push("/groups/list"))
       } catch (err) {
         console.log(err);
         throw new SubmissionError({_error: err.message})

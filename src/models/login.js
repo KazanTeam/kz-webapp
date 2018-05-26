@@ -15,21 +15,24 @@ export default {
       const {username, password} = payload;
       const {isUserLoggedIn, setUsername} = dispatch.app;
       try {
-        const data = await Auth.signIn(username, password);
-        isUserLoggedIn(true);
-        setUsername(data.username);
-        dispatch(push('/dashboard'));
+        await Auth.signIn(username, password).then(user => {
+          isUserLoggedIn(true);
+          setUsername(user.username);
+          Auth.currentAuthenticatedUser().then(cognitoUser => {
+            localStorage.setItem('access_token', cognitoUser.getSignInUserSession().getAccessToken().getJwtToken())
+          });
+          return dispatch(push('/dashboard'));
+        });
       } catch(err) {
         if (err.code === 'UserNotConfirmedException') {
           dispatch.verification.setCredential({
             username,
             password
           });
-          dispatch(push('/verification'));
+          await Auth.resendSignUp(username);
+          return dispatch(push('/pages/verification'));
         } else {
-          throw new SubmissionError({
-            _error: err.message
-          })
+          throw new SubmissionError(err.message)
         }
       }
     }

@@ -21,7 +21,7 @@ const renderCustomInput = ({
   ...custom
 }) => {
   inputProps = {...inputProps, ...input};
-  return <CustomInput        
+  return <CustomInput
       {...custom}
       inputProps={inputProps}
   />
@@ -47,7 +47,8 @@ class LoginForm extends React.Component {
   }
 
   render() {
-    const {handleSubmit, error, submitting, classes} = this.props;
+    const {handleSubmit, error, submitting, classes} = this.props
+    console.log(this.props);
     return (
       <GridContainer justify="center">
         <ItemGrid xs={12} sm={6} md={4}>
@@ -82,7 +83,7 @@ class LoginForm extends React.Component {
               content={
                 <div>
                   <Field
-                    labelText="Username"                    
+                    labelText="Username"
                     name="username"
                     formControlProps={{
                       fullWidth: true
@@ -95,7 +96,7 @@ class LoginForm extends React.Component {
                       )
                     }}
                     component={renderCustomInput}
-                  />                      
+                  />
                   <Field
                     labelText="Password"
                     name="password"

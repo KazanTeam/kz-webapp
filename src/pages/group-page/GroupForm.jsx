@@ -127,7 +127,6 @@ class GroupForm extends React.Component {
                 }
               />
             )}
-            {isCreated && (<a href="join">Link Join Group</a>)}
           </ItemGrid>
         </GridContainer>
       </div>

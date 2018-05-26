@@ -22,6 +22,10 @@ import sidebarStyle from "assets/jss/material-dashboard-pro-react/components/sid
 
 import avatar from "assets/img/faces/avatar.jpg";
 
+import {push} from "react-router-redux";
+import { dispatch } from '@rematch/core';
+import {Auth} from "aws-amplify";
+
 var ps;
 
 // We've created this component so we can have a ref to the wrapper of the links that appears in our sidebar.
@@ -208,9 +212,13 @@ class Sidebar extends React.Component {
                       {rtlActive ? "و" : "S"}
                     </span>
                     <ListItemText
-                      primary={rtlActive ? "إعدادات" : "Settings"}
+                      primary={rtlActive ? "إعدادات" : "Logout"}
                       disableTypography={true}
                       className={collapseItemText}
+                      onClick={() => {
+                        Auth.signOut()
+                        return dispatch(push('/pages/login-page'))
+                      }}
                     />
                   </NavLink>
                 </ListItem>
