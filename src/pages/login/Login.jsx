@@ -13,7 +13,6 @@ const mapDispatch = ({ login: { loginAsync }}) => ({
 class Login extends React.Component {
 
   handleSubmit = (data) => {
-    console.log(data);
     return this.props.loginAsync(data);
   };
 
@@ -22,7 +21,7 @@ class Login extends React.Component {
     return (
       <div className={classes.content}>
         <div className={classes.container}>
-          <LoginForm onSubmit={this.handleSubmit} classes={classes}/> 
+          <LoginForm onSubmit={this.handleSubmit} classes={classes}/>
         </div>
       </div>
     );

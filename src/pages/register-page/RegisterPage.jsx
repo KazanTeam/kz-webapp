@@ -9,7 +9,6 @@ const mapDispatch = ({ register: { registerAsync }}) => ({
 
 class RegisterPage extends React.Component {
   handleSubmit = (data) => {
-    console.log(data);
     return this.props.registerAsync(data);
   };
 

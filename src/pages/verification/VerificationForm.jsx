@@ -11,10 +11,10 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import ItemGrid from "components/Grid/ItemGrid.jsx";
 import RegularCard from "components/Cards/RegularCard.jsx";
 import Button from "components/CustomButtons/Button.jsx";
-import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Danger from "components/Typography/Danger.jsx";
 
 import {Field, reduxForm} from "redux-form";
+import renderCustomInput from "components/RenderCustomInput/RenderCustomInput";
 
 class VerificationForm extends React.Component {
   constructor(props) {
@@ -36,25 +36,22 @@ class VerificationForm extends React.Component {
                 <div>
                   <Field
                     name="code"
-                    component={(field) => (<CustomInput
-                      formControlProps={{
-                        fullWidth: true,
-                        className: classes.customFormControlClasses
-                      }}
-                      inputProps={{
-                        startAdornment: (
-                          <InputAdornment
-                            position="start"
-                            className={classes.inputAdornment}
-                          >
-                            <Fingerprint className={classes.inputAdornmentIcon} />
-                          </InputAdornment>
-                        ),
-                        placeholder: "Code...",
-                        ...field.input
-                      }}
-                    />)}
-                    label="GroupName"
+                    formControlProps={{
+                      fullWidth: true,
+                      className: classes.customFormControlClasses
+                    }}
+                    inputProps={{
+                      startAdornment: (
+                        <InputAdornment
+                          position="start"
+                          className={classes.inputAdornment}
+                        >
+                          <Fingerprint className={classes.inputAdornmentIcon} />
+                        </InputAdornment>
+                      ),
+                      placeholder: "Code..."
+                    }}
+                    component={renderCustomInput}
                   />
                   <div className={classes.center}>
                     <Button round color="primary" type="submit">

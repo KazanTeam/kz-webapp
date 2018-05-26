@@ -26,7 +26,10 @@ export default {
         await Auth.confirmSignUp(username, code);
         dispatch(push("/pages/login-page"))
       } catch(err) {
-        throw new SubmissionError({error: err.message});
+        if(err.message === undefined) {
+          throw new SubmissionError({_error: err})
+        }
+        throw new SubmissionError({_error: err.message});
       }
     },
     async resendSignUpAsync(payload, rootState) {

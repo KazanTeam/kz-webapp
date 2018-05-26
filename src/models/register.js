@@ -35,8 +35,10 @@ export default {
 
           dispatch(push('/pages/verification'));
         } catch (err) {
-          console.log(err);
-          throw new SubmissionError({_error: err.message})
+          if(err.message === undefined) {
+            throw new SubmissionError({_error: err})
+          }
+          throw new SubmissionError({_error: err.message});
         }
       }
     }

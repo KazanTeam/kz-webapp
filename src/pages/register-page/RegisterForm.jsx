@@ -16,7 +16,6 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import ItemGrid from "components/Grid/ItemGrid.jsx";
 import RegularCard from "components/Cards/RegularCard.jsx";
 import Button from "components/CustomButtons/Button.jsx";
-import CustomInput from "components/CustomInput/CustomInput.jsx";
 
 import compose from "recompose/compose";
 import {Field, reduxForm} from "redux-form";
@@ -26,6 +25,8 @@ import 'react-phone-number-input/rrui.css'
 import 'react-phone-number-input/style.css'
 import PhoneNumber from 'react-phone-number-input'
 import customRegisterPageStyled from './styled.jsx'
+import Danger from "components/Typography/Danger";
+import renderCustomInput from "components/RenderCustomInput/RenderCustomInput";
 
 class RegisterForm extends React.Component {
   constructor(props) {
@@ -42,7 +43,7 @@ class RegisterForm extends React.Component {
   };
 
   render() {
-    const { classes, handleSubmit, submitting } = this.props;
+    const { classes, handleSubmit, submitting, error } = this.props;
     return (
       <div className={classes.container} >
         <GridContainer justify="center" spacing={8}>
@@ -56,58 +57,52 @@ class RegisterForm extends React.Component {
                 <form className={classes.form} onSubmit={handleSubmit}>
                   <GridContainer justify="center" >
                     <ItemGrid xs={12} sm={10} md={10}>
-                    <Field
-                    name="username"
-                    component={(field) => (<CustomInput
-                      formControlProps={{
-                        fullWidth: true,
-                        className: classes.customFormControlClasses
-                      }}
-                      inputProps={{
-                        startAdornment: (
-                          <InputAdornment
-                            position="start"
-                            className={classes.inputAdornment}
-                          >
-                            <Face className={classes.inputAdornmentIcon} />
-                          </InputAdornment>
-                        ),
-                        placeholder: "User name...",
-                        name:"username",
-                        ...field.input
-                      }}
-                    />)}
-                    label="Username"
-                  />
-                    </ItemGrid>
-                  </GridContainer>
-                  <GridContainer justify="center" ><ItemGrid xs={12} sm={10} md={10}>
-                    <Field
-                      name="password"
-                      component={(field) => (<CustomInput
+                      <Field
+                        name="username"
+                        component={renderCustomInput}
                         formControlProps={{
                           fullWidth: true,
                           className: classes.customFormControlClasses
                         }}
                         inputProps={{
                           startAdornment: (
-                            <InputAdornment
-                              position="start"
-                              className={classes.inputAdornment}
+                            <InputAdornment position="start"
+                                            className={classes.inputAdornment}
                             >
-                              <LockOutline className={classes.inputAdornmentIcon} />
+                              <Face className={classes.inputAdornmentIcon} />
                             </InputAdornment>
                           ),
-                          placeholder: "Password...",
-                          ...field.input
+                          placeholder: "Username"
                         }}
-                        label="Password"
-                      />)}/></ItemGrid></GridContainer>
-                  <GridContainer justify="center" ><ItemGrid xs={12} sm={10} md={10}><Field
-                    name="email"
-                    component={(field) => (
-                      <CustomInput
-                        error={field.error}
+                      />
+                    </ItemGrid>
+                  </GridContainer>
+                  <GridContainer justify="center" ><ItemGrid xs={12} sm={10} md={10}>
+                    <Field
+                      name="password"
+                      formControlProps={{
+                        fullWidth: true,
+                        className: classes.customFormControlClasses
+                      }}
+                      inputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start"
+                                          className={classes.inputAdornment}
+                          >
+                            <LockOutline className={classes.inputAdornmentIcon} />
+                          </InputAdornment>
+                        ),
+                        placeholder: "Password",
+                        type: "password"
+                      }}
+                      component={renderCustomInput}
+                    />
+                  </ItemGrid>
+                  </GridContainer>
+                  <GridContainer justify="center" >
+                    <ItemGrid xs={12} sm={10} md={10}>
+                      <Field
+                      name="email"
                       formControlProps={{
                         fullWidth: true,
                         className: classes.customFormControlClasses
@@ -121,37 +116,34 @@ class RegisterForm extends React.Component {
                             <Email className={classes.inputAdornmentIcon} />
                           </InputAdornment>
                         ),
-                        placeholder: "Email *",
-                        ...field.input
+                        placeholder: "Email *"
                       }}
-                    />)}
-                  /></ItemGrid></GridContainer>
+                      component={renderCustomInput}
+                  />
+                    </ItemGrid>
+                  </GridContainer>
                   <GridContainer justify="center">
                     <ItemGrid xs={8} sm={8} md={7}>
                       <Field
                         name="telegramUsername"
-                        component={(field) => (
-                          <CustomInput
-                            formControlProps={{
-                              fullWidth: true,
-                              className: classes.customFormControlClasses
-                            }}
-                            inputProps={{
-                              startAdornment: (
-                                <InputAdornment
-                                  position="start"
-                                  className={classes.inputAdornment}
-                                >
-                                  <Send
-                                    className={classes.inputAdornmentIcon}
-                                  />
-                                </InputAdornment>
-                              ),
-                              placeholder: "TelegramID...",
-                              ...field.input
-                            }}
-                          />
-                        )}
+                        formControlProps={{
+                          fullWidth: true,
+                          className: classes.customFormControlClasses
+                        }}
+                        inputProps={{
+                          startAdornment: (
+                            <InputAdornment
+                              position="start"
+                              className={classes.inputAdornment}
+                            >
+                              <Send
+                                className={classes.inputAdornmentIcon}
+                              />
+                            </InputAdornment>
+                          ),
+                          placeholder: "TelegramID...",
+                        }}
+                        component={renderCustomInput}
                       />
                     </ItemGrid>
                     <ItemGrid xs={4} sm={4} md={3}>
@@ -172,54 +164,46 @@ class RegisterForm extends React.Component {
                   </GridContainer>
                   <GridContainer justify="center" ><ItemGrid xs={12} sm={10} md={10}><Field
                     name="firstName"
-                    component={(field) => (
-                      <CustomInput
-                        formControlProps={{
-                          fullWidth: true,
-                          className: classes.customFormControlClasses
-                        }}
-                        inputProps={{
-                          startAdornment: (
-                            <InputAdornment
-                              position="start"
-                              className={classes.inputAdornment}
-                            >
-                              <Face
-                                className={classes.inputAdornmentIcon}
-                              />
-                            </InputAdornment>
-                          ),
-                          placeholder: "FirstName...",
-                          ...field.input
-                        }}
-                      />
-                    )}
+                    formControlProps={{
+                      fullWidth: true,
+                      className: classes.customFormControlClasses
+                    }}
+                    inputProps={{
+                      startAdornment: (
+                        <InputAdornment
+                          position="start"
+                          className={classes.inputAdornment}
+                        >
+                          <Face
+                            className={classes.inputAdornmentIcon}
+                          />
+                        </InputAdornment>
+                      ),
+                      placeholder: "FirstName..."
+                    }}
+                    component={renderCustomInput}
                   /></ItemGrid></GridContainer>
                   <GridContainer justify="center" >
                     <ItemGrid xs={12} sm={10} md={10}><Field
                       name="lastName"
-                      component={(field) => (
-                        <CustomInput
-                          formControlProps={{
-                            fullWidth: true,
-                            className: classes.customFormControlClasses
-                          }}
-                          inputProps={{
-                            startAdornment: (
-                              <InputAdornment
-                                position="start"
-                                className={classes.inputAdornment}
-                              >
-                                <Face
-                                  className={classes.inputAdornmentIcon}
-                                />
-                              </InputAdornment>
-                            ),
-                            placeholder: "Last Name...",
-                            ...field.input
-                          }}
-                        />
-                      )}
+                      formControlProps={{
+                        fullWidth: true,
+                        className: classes.customFormControlClasses
+                      }}
+                      inputProps={{
+                        startAdornment: (
+                          <InputAdornment
+                            position="start"
+                            className={classes.inputAdornment}
+                          >
+                            <Face
+                              className={classes.inputAdornmentIcon}
+                            />
+                          </InputAdornment>
+                        ),
+                        placeholder: "Last Name..."
+                      }}
+                      component={renderCustomInput}
                     /></ItemGrid>
                   </GridContainer>
                   <GridContainer justify="center"><ItemGrid xs={12} sm={10} md={10}>
@@ -227,6 +211,9 @@ class RegisterForm extends React.Component {
                       <Button round color="primary" type="submit">
                         Get started
                       </Button>
+                    </div>
+                    <div className={classes.center}>
+                      <Danger>{error}</Danger>
                     </div>
                   </ItemGrid></GridContainer>
                 </form>

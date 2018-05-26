@@ -7,25 +7,19 @@ import InputAdornment from "material-ui/Input/InputAdornment";
 
 // @material-ui/icons
 import SupervisorAccount from "@material-ui/icons/SupervisorAccount";
-import Email from "@material-ui/icons/Email";
-import LockOutline from "@material-ui/icons/LockOutline";
-import Send from '@material-ui/icons/Send'
 
 // core components
 import GridContainer from "components/Grid/GridContainer.jsx";
 import ItemGrid from "components/Grid/ItemGrid.jsx";
 import RegularCard from "components/Cards/RegularCard.jsx";
 import Button from "components/CustomButtons/Button.jsx";
-import CustomInput from "components/CustomInput/CustomInput.jsx";
 
 import compose from "recompose/compose";
 import {Field, reduxForm} from "redux-form";
 
 //phone number
-import 'react-phone-number-input/rrui.css'
-import 'react-phone-number-input/style.css'
-import PhoneNumber from 'react-phone-number-input'
 import registerPageStyle from "assets/jss/material-dashboard-pro-react/views/registerPageStyle";
+import renderCustomInput from "components/RenderCustomInput/RenderCustomInput";
 
 class GroupForm extends React.Component {
   constructor(props) {
@@ -49,71 +43,63 @@ class GroupForm extends React.Component {
                       <form className={classes.form} onSubmit={handleSubmit}>
                         <Field
                           name="name"
-                          component={(field) => (<CustomInput
-                            formControlProps={{
-                              fullWidth: true,
-                              className: classes.customFormControlClasses
-                            }}
-                            inputProps={{
-                              startAdornment: (
-                                <InputAdornment
-                                  position="start"
-                                  className={classes.inputAdornment}
-                                >
-                                  <SupervisorAccount className={classes.inputAdornmentIcon} />
-                                </InputAdornment>
-                              ),
-                              placeholder: "Group name...",
-                              name:"name",
-                              ...field.input
-                            }}
-                          />)}
-                          label="GroupName"
+                          formControlProps={{
+                            fullWidth: true,
+                            className: classes.customFormControlClasses
+                          }}
+                          inputProps={{
+                            startAdornment: (
+                              <InputAdornment
+                                position="start"
+                                className={classes.inputAdornment}
+                              >
+                                <SupervisorAccount className={classes.inputAdornmentIcon} />
+                              </InputAdornment>
+                            ),
+                            placeholder: "Group name...",
+                            name:"name"
+                          }}
+                          component={renderCustomInput}
                         />
                         <Field
                           name="groupNotifyBot"
-                          component={(field) => (<CustomInput
-                            formControlProps={{
-                              fullWidth: true,
-                              className: classes.customFormControlClasses
-                            }}
-                            inputProps={{
-                              startAdornment: (
-                                <InputAdornment
-                                  position="start"
-                                  className={classes.inputAdornment}
-                                >
-                                  <SupervisorAccount className={classes.inputAdornmentIcon} />
-                                </InputAdornment>
-                              ),
-                              placeholder: "Group notify bot...",
-                              name:"groupNotifyBot",
-                              ...field.input
-                            }}
-                          />)}
+                          formControlProps={{
+                            fullWidth: true,
+                            className: classes.customFormControlClasses
+                          }}
+                          inputProps={{
+                            startAdornment: (
+                              <InputAdornment
+                                position="start"
+                                className={classes.inputAdornment}
+                              >
+                                <SupervisorAccount className={classes.inputAdornmentIcon} />
+                              </InputAdornment>
+                            ),
+                            placeholder: "Group notify bot...",
+                            name:"groupNotifyBot"
+                          }}
+                          component={renderCustomInput}
                         />
                         <Field
                           name="groupAlertBot"
-                          component={(field) => (<CustomInput
-                            formControlProps={{
-                              fullWidth: true,
-                              className: classes.customFormControlClasses
-                            }}
-                            inputProps={{
-                              startAdornment: (
-                                <InputAdornment
-                                  position="start"
-                                  className={classes.inputAdornment}
-                                >
-                                  <SupervisorAccount className={classes.inputAdornmentIcon} />
-                                </InputAdornment>
-                              ),
-                              placeholder: "Group alert bot...",
-                              name:"groupAlertBot",
-                              ...field.input
-                            }}
-                          />)}
-                          label="GroupName"
+                          component={renderCustomInput}
+                          formControlProps={{
+                            fullWidth: true,
+                            className: classes.customFormControlClasses
+                          }}
+                          inputProps={{
+                            startAdornment: (
+                              <InputAdornment
+                                position="start"
+                                className={classes.inputAdornment}
+                              >
+                                <SupervisorAccount className={classes.inputAdornmentIcon} />
+                              </InputAdornment>
+                            ),
+                            placeholder: "Group alert bot...",
+                            name:"groupAlertBot"
+                          }}
                         />
 
                         <div className={classes.center}>

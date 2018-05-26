@@ -22,15 +22,12 @@ export default {
   effects: {
     async groupAsync(payload) {
       try {
-        const {name, groupNotifyBot, groupAlertBot} = payload;
-
         this.setIsCreated({isCreated: true});
 
         groupService.createGroup(payload);
 
         return dispatch(push("/groups/list"))
       } catch (err) {
-        console.log(err);
         throw new SubmissionError({_error: err.message})
       }
     }
