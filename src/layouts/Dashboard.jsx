@@ -26,9 +26,9 @@ import { isUserLoggedIn } from 'utils/App'
 const switchRoutes = () => (
   <Switch>
     {dashboardRoutes.map((prop, key) => {
-      // if (!isUserLoggedIn()) {
-      //   return <Redirect to="/pages/login-page" key={key}/>;
-      // }
+      if (!isUserLoggedIn()) {
+        return <Redirect to="/pages/login-page" key={key}/>;
+      }
       if (prop.redirect)
         return <Redirect from={prop.path} to={prop.pathTo} key={key} />;
       if (prop.collapse)
