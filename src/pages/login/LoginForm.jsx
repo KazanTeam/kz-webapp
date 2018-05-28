@@ -71,7 +71,7 @@ class LoginForm extends React.Component {
                     component={renderCustomInput}
                   />
                   <Field
-                    label="Password"
+                    labelText="Password"
                     name="password"
                     formControlProps={{
                       fullWidth: true

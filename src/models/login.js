@@ -18,7 +18,7 @@ export default {
         await Auth.signIn(username, password).then(user => {
           isUserLoggedIn(true);
           setUsername(user.username);
-          Auth.currentAuthenticatedUser().then(cognitoUser => {
+        Auth.currentAuthenticatedUser().then(cognitoUser => {
             localStorage.setItem('access_token', cognitoUser.getSignInUserSession().getAccessToken().getJwtToken())
           });
           return dispatch(push('/dashboard'));
@@ -35,7 +35,7 @@ export default {
           if(err.message === undefined) {
             throw new SubmissionError({_error: err})
           }
-          throw new SubmissionError({_error: err.message}); 
+          throw new SubmissionError({_error: err.message});
         }
       }
     }
