@@ -12,10 +12,11 @@ import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import registerServiceWorker from './registerServiceWorker';
 import awsmobile from './aws-exports';
 import Amplify from 'aws-amplify';
-import * as models from './models';
-import selectorsPlugin, {select} from '@rematch/select'
 
-export {default as config }  from './config';
+import * as models from './models';
+import selectorsPlugin from '@rematch/select'
+
+// export {default as config }  from './config';
 
 Amplify.configure(awsmobile);
 

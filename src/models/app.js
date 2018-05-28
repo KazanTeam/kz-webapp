@@ -1,4 +1,3 @@
-
 const initialState = {
   isUserLoggedIn: false,
   username: '',
@@ -25,5 +24,10 @@ export default {
   },
   effects: {
 
+  },
+  selectors: {
+    isUserLoggedIn: state => {
+      return state.isUserLoggedIn
+    },
   }
 }

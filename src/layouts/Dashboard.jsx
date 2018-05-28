@@ -21,9 +21,14 @@ import appStyle from "assets/jss/material-dashboard-pro-react/layouts/dashboardS
 import image from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/logo-white.svg";
 
-const switchRoutes = (
+import { isUserLoggedIn } from 'utils/App'
+
+const switchRoutes = () => (
   <Switch>
     {dashboardRoutes.map((prop, key) => {
+      // if (!isUserLoggedIn()) {
+      //   return <Redirect to="/pages/login-page" key={key}/>;
+      // }
       if (prop.redirect)
         return <Redirect from={prop.path} to={prop.pathTo} key={key} />;
       if (prop.collapse)
@@ -107,10 +112,10 @@ class Dashboard extends React.Component {
           {/* On the /maps/full-screen-maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
           {this.getRoute() ? (
             <div className={classes.content}>
-              <div className={classes.container}>{switchRoutes}</div>
+              <div className={classes.container}>{switchRoutes()}</div>
             </div>
           ) : (
-            <div className={classes.map}>{switchRoutes}</div>
+            <div className={classes.map}>{switchRoutes()}</div>
           )}
           {this.getRoute() ? <Footer fluid /> : null}
         </div>
