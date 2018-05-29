@@ -18,9 +18,6 @@ export default {
         await Auth.signIn(username, password).then(user => {
           isUserLoggedIn(true);
           setUsername(user.username);
-        Auth.currentAuthenticatedUser().then(cognitoUser => {
-            localStorage.setItem('access_token', cognitoUser.getSignInUserSession().getAccessToken().getJwtToken())
-          });
           return dispatch(push('/dashboard'));
         });
       } catch(err) {

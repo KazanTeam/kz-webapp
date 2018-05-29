@@ -216,7 +216,8 @@ class Sidebar extends React.Component {
                       disableTypography={true}
                       className={collapseItemText}
                       onClick={() => {
-                        Auth.signOut()
+                        Auth.signOut();
+                        dispatch.app.clear();
                         return dispatch(push('/pages/login-page'))
                       }}
                     />
