@@ -6,15 +6,15 @@ import "assets/scss/material-dashboard-pro-react.css?v=1.1.0";
 
 import App from './App';
 import { Provider } from 'react-redux';
-import { init } from '@rematch/core';
+import { init, dispatch } from '@rematch/core';
 import createHistory from 'history/createBrowserHistory';
-import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
+import { ConnectedRouter, routerMiddleware, push } from 'react-router-redux';
 import registerServiceWorker from './registerServiceWorker';
 import awsmobile from './aws-exports';
-import Amplify from 'aws-amplify';
+import Amplify, { Auth } from 'aws-amplify';
 
 import * as models from './models';
-import selectorsPlugin from '@rematch/select'
+import selectorsPlugin from '@rematch/select';
 
 // export {default as config }  from './config';
 
@@ -33,13 +33,26 @@ const store = init({
   plugins: [selectorsPlugin()]
 });
 
-ReactDOM.render(
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <App />
-    </ConnectedRouter>
-  </Provider>,
-  document.getElementById('root')
-);
+async function startApp() {
+  try {
+    const user = await Auth.currentAuthenticatedUser();
+    dispatch.app.isUserLoggedIn(true);
+    dispatch.app.setUsername(user.username);
+    
+  } catch(err) {
+    console.log(err);
+  }
+
+  ReactDOM.render(
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <App />
+      </ConnectedRouter>
+    </Provider>,
+    document.getElementById('root')
+  );
+}
+
+startApp();
 
 registerServiceWorker();
