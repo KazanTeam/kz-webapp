@@ -16,7 +16,7 @@ export default {
       try {
         const user = await Auth.signIn(username, password);
         dispatch.app.isUserLoggedIn(true);
-        dispatch.app.setUsername(user.username);         
+        dispatch.app.setUsername(user.username);
         return dispatch(push('/dashboard'));
       } catch(err) {
         if (err.code === 'UserNotConfirmedException') {
