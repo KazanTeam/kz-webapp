@@ -23,16 +23,13 @@ import renderCustomInput from "components/RenderCustomInput/RenderCustomInput";
 import Danger from "components/Typography/Danger";
 
 class GroupForm extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentWillReceiveProps(nextProps) {
     const {change} = this.props;
-    const values  = nextProps.initialValues;
-    if(values !== null) {
+    const values = nextProps.initialValues;
+    if (values !== null) {
       for (let key in values) {
-        if(values.hasOwnProperty(key)) {
+        if (values.hasOwnProperty(key)) {
           change(key, values[key])
         }
       }
@@ -45,13 +42,14 @@ class GroupForm extends React.Component {
       handleSubmit,
       submitting,
       error,
+      pathName
     } = this.props;
     return (
       <div className={classes.center}>
         <GridContainer justify="center">
           <ItemGrid xs={12} sm={6} md={5}>
             <RegularCard
-              cardTitle="Create Group"
+              cardTitle={pathName === '/groups/edit' ? 'Edit Group': 'Create Group'}
               titleAlign="center"
               customCardTitleClasses={classes.cardTitle}
               customCardClasses={classes.cardClasses}
@@ -74,11 +72,11 @@ class GroupForm extends React.Component {
                               position="start"
                               className={classes.inputAdornment}
                             >
-                              <SupervisorAccount className={classes.inputAdornmentIcon} />
+                              <SupervisorAccount className={classes.inputAdornmentIcon}/>
                             </InputAdornment>
                           ),
                           placeholder: "Group name...",
-                          name:"name"
+                          name: "name"
                         }}
                         component={renderCustomInput}
                       />
@@ -94,11 +92,11 @@ class GroupForm extends React.Component {
                               position="start"
                               className={classes.inputAdornment}
                             >
-                              <SupervisorAccount className={classes.inputAdornmentIcon} />
+                              <SupervisorAccount className={classes.inputAdornmentIcon}/>
                             </InputAdornment>
                           ),
                           placeholder: "Group notify bot...",
-                          name:"groupNotifyBot"
+                          name: "groupNotifyBot"
                         }}
                         component={renderCustomInput}
                       />
@@ -115,16 +113,16 @@ class GroupForm extends React.Component {
                               position="start"
                               className={classes.inputAdornment}
                             >
-                              <SupervisorAccount className={classes.inputAdornmentIcon} />
+                              <SupervisorAccount className={classes.inputAdornmentIcon}/>
                             </InputAdornment>
                           ),
                           placeholder: "Group alert bot...",
-                          name:"groupAlertBot"
+                          name: "groupAlertBot"
                         }}
                       />
 
                       <div className={classes.center}>
-                        <Button round color="primary" type="submit">
+                        <Button round color="primary" type="submit" disabled={submitting}>
                           Get started
                         </Button>
                       </div>

@@ -38,9 +38,9 @@ async function startApp() {
     const user = await Auth.currentAuthenticatedUser();
     dispatch.app.isUserLoggedIn(true);
     dispatch.app.setUsername(user.username);
-    
+
   } catch(err) {
-    console.log(err);
+    dispatch(push("/pages/login-page"))
   }
 
   ReactDOM.render(

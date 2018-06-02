@@ -17,9 +17,7 @@ import {Field, reduxForm} from "redux-form";
 import renderCustomInput from "components/RenderCustomInput/RenderCustomInput";
 
 class VerificationForm extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+
   render() {
     const { classes, handleSubmit, handleResend, error } = this.props;
     return (

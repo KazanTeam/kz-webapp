@@ -1,7 +1,6 @@
 import React from 'react';
 import VerificationForm from './VerificationForm'
 import {connect} from "react-redux";
-import Button from 'material-ui/Button';
 import registerPageStyle from "assets/jss/material-dashboard-pro-react/views/registerPageStyle";
 import withStyles from "material-ui/styles/withStyles";
 

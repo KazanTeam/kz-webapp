@@ -37,7 +37,7 @@ class LoginForm extends React.Component {
   }
 
   render() {
-    const {handleSubmit, error, classes} = this.props;
+    const {handleSubmit, error, classes, submitting} = this.props;
     return (
       <GridContainer justify="center">
         <ItemGrid xs={12} sm={6} md={4}>
@@ -49,7 +49,7 @@ class LoginForm extends React.Component {
               cardSubtitle=""
               footerAlign="center"
               footer={
-                <Button type="submit" color="roseNoBackground" wd size="lg">
+                <Button type="submit" color="roseNoBackground" wd size="lg" disabled={submitting}>
                   Let's Go
                 </Button>
               }

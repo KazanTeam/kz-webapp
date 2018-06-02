@@ -13,15 +13,14 @@ import ItemGrid from "components/Grid/ItemGrid.jsx";
 import IconCard from "components/Cards/IconCard.jsx";
 import IconButton from "components/CustomButtons/IconButton.jsx";
 
-import { dataTable } from "variables/general.jsx";
 import {push} from "react-router-redux";
-import { dispatch } from '@rematch/core';
+import {dispatch} from '@rematch/core';
 import Button from "components/CustomButtons/Button.jsx";
 
 import buttonsStyle from "assets/jss/material-dashboard-pro-react/views/buttonsStyle.jsx";
 import withStyles from "material-ui/styles/withStyles";
 import PropTypes from 'prop-types';
-import { select } from '@rematch/select'
+import {select} from '@rematch/select'
 import {connect} from "react-redux";
 
 const mapStateToProps = state => ({
@@ -32,8 +31,8 @@ const mapDispatch = ({group: {updateGroup}}) => ({
   updateGroup
 });
 
-class GroupTable extends React.Component{
-  constructor(props){
+class GroupTable extends React.Component {
+  constructor(props) {
     super(props);
     this.state = {
       groups: this.props.groups.map((group, key) => {
@@ -46,26 +45,26 @@ class GroupTable extends React.Component{
           actions: (
             // we've added some custom button actions
             <div className="actions-right">
-              { /* use this button to add a edit kind of action */ }
+              {/* use this button to add a edit kind of action */}
               <IconButton
                 onClick={() => {
                   let obj = this.state.groups.find(o => o.id === group.id);
                   this.props.updateGroup(obj);
-                  dispatch(push("/groups/create"))
+                  dispatch(push("/groups/edit"))
                 }}
                 color="warningNoBackground"
                 customClass="edit">
-                <Dvr />
+                <Dvr/>
               </IconButton>{" "}
-              { /* use this button to remove the data row */ }
+              {/* use this button to remove the data row */}
               <IconButton
                 onClick={() => {
                   var data = this.state.data;
-                  data.find((o,i) => {
-                    if(o.id === key){
+                  data.find((o, i) => {
+                    if (o.id === key) {
                       // here you should add some custom code so you can delete the data
                       // from this component and from your server as well
-                      data.splice(i,1);
+                      data.splice(i, 1);
                       return true;
                     }
                     return false;
@@ -74,7 +73,7 @@ class GroupTable extends React.Component{
                 }}
                 color="dangerNoBackground"
                 customClass="remove">
-                <Close />
+                <Close/>
               </IconButton>{" "}
             </div>
           )
@@ -82,7 +81,8 @@ class GroupTable extends React.Component{
       })
     }
   }
-  render(){
+
+  render() {
     console.log(this.props);
     const {classes} = this.props;
     return (
@@ -96,8 +96,8 @@ class GroupTable extends React.Component{
                 <ItemGrid xs={12}>
                   <Button color="primary" customClass={classes.right}
                           onClick={() => {
-                              dispatch(push('/groups/create'))
-                           }} >Create Group
+                            dispatch(push('/groups/create'))
+                          }}>Create Group
                   </Button>
                 </ItemGrid>
                 <ItemGrid xs={12}> <ReactTable
@@ -128,7 +128,6 @@ class GroupTable extends React.Component{
                     }
                   ]}
                   defaultPageSize={5}
-                  // showPaginationTop
                   showPaginationBottom
                   className="-striped -highlight"
                 /></ItemGrid>
@@ -140,6 +139,7 @@ class GroupTable extends React.Component{
     );
   }
 }
+
 GroupTable.propTypes = {
   classes: PropTypes.object.isRequired
 };

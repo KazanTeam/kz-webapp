@@ -1,8 +1,11 @@
 import {dispatch} from '@rematch/core';
 import {push} from "react-router-redux";
-import {SubmissionError} from "redux-form";
 import groupService from 'services/GroupService.js'
 
+/**
+ * Hard code table values
+ * @type {*[]}
+ */
 const initState = [
   {id: 1, name: "Group 1", groupNotifyBot: 1, groupAlertBot: 1, creator: 1},
   {id: 2, name: "Group 2", groupNotifyBot: 2, groupAlertBot: 2, creator: 1},
@@ -34,10 +37,10 @@ export default {
   effects: {
     async groupAsync(payload) {
       try {
-        let data = await groupService.createGroup(payload);
+        await groupService.createGroup(payload);
         return dispatch(push("/groups/list"))
-      }catch (error) {
-        throw new SubmissionError({_error: error.data})
+      } catch (error) {
+        throw error;
       }
     },
     async updateGroup(payload) {
@@ -45,11 +48,11 @@ export default {
     }
   },
   selectors: {
-      getGroup: (state) => {
-        return state.group;
-      },
-      getGroups: (state) => {
-        return state.groups;
-      }
+    getGroup: (state) => {
+      return state.group;
+    },
+    getGroups: (state) => {
+      return state.groups;
+    }
   }
 }

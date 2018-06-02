@@ -1,5 +1,5 @@
-import { dispatch } from '@rematch/core'
-import { Auth } from 'aws-amplify';
+import {dispatch} from '@rematch/core'
+import {Auth} from 'aws-amplify';
 import {push} from "react-router-redux";
 import {SubmissionError} from "redux-form";
 
@@ -25,8 +25,8 @@ export default {
         const {username} = selectors.getCredential(rootState);
         await Auth.confirmSignUp(username, code);
         dispatch(push("/pages/login-page"))
-      } catch(err) {
-        if(err.message === undefined) {
+      } catch (err) {
+        if (err.message === undefined) {
           throw new SubmissionError({_error: err})
         }
         throw new SubmissionError({_error: err.message});
@@ -36,7 +36,7 @@ export default {
       try {
         const {username} = selectors.getCredential(rootState);
         await Auth.resendSignUp(username);
-      } catch(err) {
+      } catch (err) {
         console.log(err);
       }
     }
