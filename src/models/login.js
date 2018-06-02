@@ -26,12 +26,8 @@ export default {
           });
           await Auth.resendSignUp(username);
           return dispatch(push('/pages/verification'));
-        } else {
-          if(err.message === undefined) {
-            throw new SubmissionError({_error: err})
-          }
-          throw new SubmissionError({_error: err.message});
-        }
+        } 
+        throw err;        
       }
     }
   }

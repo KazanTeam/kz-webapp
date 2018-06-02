@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import withStyles from "material-ui/styles/withStyles";
+import {SubmissionError} from "redux-form";
 
 import LoginForm from './LoginForm';
 
@@ -12,8 +13,11 @@ const mapDispatch = ({ login: { loginAsync }}) => ({
 
 class Login extends React.Component {
 
-  handleSubmit = (data) => {
-    return this.props.loginAsync(data);
+  handleSubmit = (data) => {    
+    return this.props.loginAsync(data)
+      .catch(err => {
+        throw new SubmissionError({_error: err.message});
+      });
   };
 
   render() {
