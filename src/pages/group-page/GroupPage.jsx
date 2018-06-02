@@ -1,27 +1,29 @@
 import React from "react";
 import {connect} from "react-redux";
 import GroupForm from "./GroupForm";
-import { select } from '@rematch/select'
+import {select} from '@rematch/select'
 
 const mapStateToProps = state => ({
-  isCreated: select.group.getIsCreated(state)
+  initialValues: select.group.getGroup(state)
 });
 
-//mapping dispatch
 const mapDispatch = ({ group: { groupAsync }}) => ({
   groupAsync
 });
 
 class GroupPage extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   handleSubmit = (data) => {
-    console.log(data);
     return this.props.groupAsync(data);
   };
 
   render() {
-    console.log(this.props);
+    // console.log(this/.props);
     return (
-      <GroupForm onSubmit={this.handleSubmit} isCreated={this.props.isCreated}/>
+      <GroupForm onSubmit={this.handleSubmit} initialValues={this.props.initialValues}/>
     );
   }
 }
