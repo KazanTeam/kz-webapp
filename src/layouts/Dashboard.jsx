@@ -21,14 +21,15 @@ import appStyle from "assets/jss/material-dashboard-pro-react/layouts/dashboardS
 import image from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/logo-white.svg";
 
-import { isUserLoggedIn } from 'utils/App'
+import { isUserLoggedIn } from 'utils/App';
+import {Auth} from 'aws-amplify';
 
 const switchRoutes = () => (
   <Switch>
     {dashboardRoutes.map((prop, key) => {
-      if (!isUserLoggedIn()) {
-        return <Redirect to="/pages/login-page" key={key}/>;
-      }
+      // if (!isUserLoggedIn()) {
+      //   return <Redirect to="/pages/login-page" key={key}/>;
+      // }
       if (prop.redirect)
         return <Redirect from={prop.path} to={prop.pathTo} key={key} />;
       if (prop.collapse)
@@ -56,6 +57,8 @@ class Dashboard extends React.Component {
     return this.props.location.pathname !== "/maps/full-screen-maps";
   }
   componentDidMount() {
+    // Auth.currentUserInfo().then(cognitoUser -> {
+    // })
     if (navigator.platform.indexOf("Win") > -1) {
       // eslint-disable-next-line
       ps = new PerfectScrollbar(this.refs.mainPanel, {

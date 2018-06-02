@@ -13,13 +13,11 @@ export default {
   effects: {
     async loginAsync(payload) {
       const {username, password} = payload;
-      const {isUserLoggedIn, setUsername} = dispatch.app;
       try {
-        await Auth.signIn(username, password).then(user => {
-          isUserLoggedIn(true);
-          setUsername(user.username);         
-          return dispatch(push('/dashboard'));
-        });
+        const user = await Auth.signIn(username, password);
+        dispatch.app.isUserLoggedIn(true);
+        dispatch.app.setUsername(user.username);         
+        return dispatch(push('/dashboard'));
       } catch(err) {
         if (err.code === 'UserNotConfirmedException') {
           dispatch.verification.setCredential({
