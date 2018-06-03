@@ -9,11 +9,11 @@ import loginPageStyle from "assets/jss/material-dashboard-pro-react/views/loginP
 
 const mapDispatch = ({ login: { loginAsync }}) => ({
   loginAsync
-})
+});
 
 class Login extends React.Component {
 
-  handleSubmit = (data) => {    
+  handleSubmit = (data) => {
     return this.props.loginAsync(data)
       .catch(err => {
         throw new SubmissionError({_error: err.message});

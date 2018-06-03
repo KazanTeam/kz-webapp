@@ -1,5 +1,5 @@
 // import PricingPage from "views/Pages/PricingPage.jsx";
-import RegisterPage from "pages/register-page/RegisterPage";
+import RegisterPage from "pages/register";
 import LoginPage from "pages/login";
 // import RegisterPage from "views/Pages/RegisterPage.jsx";
 // import LockScreenPage from "views/Pages/LockScreenPage.jsx";

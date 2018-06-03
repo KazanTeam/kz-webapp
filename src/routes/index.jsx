@@ -1,6 +1,5 @@
 import Pages from "layouts/Pages.jsx";
 import Dashboard from "layouts/Dashboard.jsx";
-import GroupPage from "../pages/group-page/GroupPage";
 
 // var indexRoutes = [
 //   // { path: "/rtl", name: "RTL", component: RTL },

@@ -22,14 +22,13 @@ import image from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/logo-white.svg";
 
 import { isUserLoggedIn } from 'utils/App';
-import {Auth} from 'aws-amplify';
 
 const switchRoutes = () => (
   <Switch>
     {dashboardRoutes.map((prop, key) => {
-      // if (!isUserLoggedIn()) {
-      //   return <Redirect to="/pages/login-page" key={key}/>;
-      // }
+      if (!isUserLoggedIn()) {
+        return <Redirect to="/pages/login-page" key={key}/>;
+      }
       if (prop.redirect)
         return <Redirect from={prop.path} to={prop.pathTo} key={key} />;
       if (prop.collapse)

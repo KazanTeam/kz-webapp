@@ -3,8 +3,8 @@ import Dashboard from "pages/dashboard/Dashboard.jsx";
 // @material-ui/icons
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import ContentPaste from "@material-ui/icons/ContentPaste";
-import GroupPage from "../pages/group-page/GroupPage";
-import GroupTable from "../pages/group-page/table/GroupTable";
+import Group from "pages/group";
+import GroupTable from "pages/group/table";
 
 // var pages = [
 //   {
@@ -43,8 +43,9 @@ var dashRoutes = [
   //   views: pages
   // },
   { path: "/groups/list", name: "Groups", icon: ContentPaste, component: GroupTable },
-  { path: "/groups/create", name: "Create Group", icon: ContentPaste, component: GroupPage , invisible: true},
-  // { path: "/create", name: "Create Group", icon: ContentPaste, component: GroupPage , invisible: true},
+  { path: "/groups/create", name: "Create Group", icon: ContentPaste, component: Group , invisible: true},
+  { path: "/groups/edit", name: "Edit Group", icon: ContentPaste, component: Group , invisible: true},
+  // { path: "/create", name: "Create Group", icon: ContentPaste, component: Group , invisible: true},
   // {
   //   collapse: true,
   //   path: "/tables",
