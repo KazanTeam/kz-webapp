@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {select} from '@rematch/select';
+import {connect} from 'react-redux';
 
 // material-ui components
 import withStyles from "material-ui/styles/withStyles";
@@ -24,17 +26,17 @@ import Danger from "components/Typography/Danger";
 
 class GroupForm extends React.Component {
 
-  componentWillReceiveProps(nextProps) {
-    const {change} = this.props;
-    const values = nextProps.initialValues;
-    if (values !== null) {
-      for (let key in values) {
-        if (values.hasOwnProperty(key)) {
-          change(key, values[key])
-        }
-      }
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   const {change} = this.props;
+  //   const values = nextProps.initialValues;
+  //   if (values !== null) {
+  //     for (let key in values) {
+  //       if (values.hasOwnProperty(key)) {
+  //         change(key, values[key])
+  //       }
+  //     }
+  //   }
+  // }
 
   render() {
     const {
@@ -44,6 +46,8 @@ class GroupForm extends React.Component {
       error,
       pathName
     } = this.props;
+    console.log('this.props.initialValues', this.props.initialValues);
+    
     return (
       <div className={classes.center}>
         <GridContainer justify="center">
@@ -142,12 +146,18 @@ GroupForm.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
+const mapState = state => ({
+  initialValues: select.group.getGroup(state)
+});
+
 export default compose(
   withStyles(registerPageStyle, {
     name: 'GroupForm'
   }),
+  connect(mapState),
   reduxForm({
-    form: 'GroupForm'
+    form: 'GroupForm',
+    enableReinitialize: true
   })
 )(GroupForm);
 

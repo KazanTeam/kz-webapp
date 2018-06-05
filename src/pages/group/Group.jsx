@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import GroupForm from "./GroupForm";
-import {select} from '@rematch/select'
+import {select} from '@rematch/select';
 import {SubmissionError} from "redux-form";
 
 const mapStateToProps = state => ({
@@ -24,9 +24,9 @@ class Group extends React.Component {
   render() {
     const {location: {pathname}} = this.props;
     return (
-      <GroupForm onSubmit={this.handleSubmit} initialValues={this.props.initialValues} pathName={pathname}/>
+      <GroupForm onSubmit={this.handleSubmit} pathName={pathname}/>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatch)(Group);
+export default connect(null, mapDispatch)(Group);

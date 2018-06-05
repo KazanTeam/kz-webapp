@@ -3,8 +3,8 @@ import Dashboard from "pages/dashboard/Dashboard.jsx";
 // @material-ui/icons
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import ContentPaste from "@material-ui/icons/ContentPaste";
-import Group from "pages/group";
-import GroupTable from "pages/group/table";
+import Group from "pages/group/Group";
+import GroupTable from "pages/group/GroupTable";
 
 // var pages = [
 //   {

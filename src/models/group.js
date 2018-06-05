@@ -27,10 +27,10 @@ export default {
     }
   },
   reducers: {
-    setGroup(state, payload) {
+    set(state, payload) {
       return {
         ...state,
-        group: payload
+        ...payload
       }
     }
   },
@@ -43,8 +43,8 @@ export default {
         throw error;
       }
     },
-    async updateGroup(payload) {
-      this.setGroup(payload)
+    async setGroup(payload) {
+      this.set({group: payload});
     }
   },
   selectors: {

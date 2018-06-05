@@ -27,8 +27,8 @@ const mapStateToProps = state => ({
   groups: select.group.getGroups(state)
 });
 
-const mapDispatch = ({group: {updateGroup}}) => ({
-  updateGroup
+const mapDispatch = ({group: {setGroup}}) => ({
+  setGroup
 });
 
 class GroupTable extends React.Component {
@@ -49,7 +49,7 @@ class GroupTable extends React.Component {
               <IconButton
                 onClick={() => {
                   let obj = this.state.groups.find(o => o.id === group.id);
-                  this.props.updateGroup(obj);
+                  this.props.setGroup(obj);
                   dispatch(push("/groups/edit"))
                 }}
                 color="warningNoBackground"
