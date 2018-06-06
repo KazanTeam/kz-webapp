@@ -44,7 +44,7 @@ var dashRoutes = [
   // },
   { path: "/groups/list", name: "Groups", icon: ContentPaste, component: GroupTable },
   { path: "/groups/create", name: "Create Group", icon: ContentPaste, component: Group , invisible: true},
-  { path: "/groups/edit", name: "Edit Group", icon: ContentPaste, component: Group , invisible: true},
+  { path: "/groups/edit/:id", name: "Edit Group", icon: ContentPaste, component: Group , invisible: true},
   // { path: "/create", name: "Create Group", icon: ContentPaste, component: Group , invisible: true},
   // {
   //   collapse: true,

@@ -1,12 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import GroupForm from "./GroupForm";
-import {select} from '@rematch/select';
 import {SubmissionError} from "redux-form";
-
-const mapStateToProps = state => ({
-  initialValues: select.group.getGroup(state)
-});
 
 const mapDispatch = ({group: {groupAsync}}) => ({
   groupAsync
@@ -22,9 +17,10 @@ class Group extends React.Component {
   };
 
   render() {
-    const {location: {pathname}} = this.props;
+    const {location: {pathname}, match} = this.props;
+
     return (
-      <GroupForm onSubmit={this.handleSubmit} pathName={pathname}/>
+      <GroupForm onSubmit={this.handleSubmit} pathName={pathname} match={match}/>
     );
   }
 }

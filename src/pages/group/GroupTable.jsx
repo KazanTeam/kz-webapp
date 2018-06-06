@@ -20,7 +20,7 @@ import Button from "components/CustomButtons/Button.jsx";
 import buttonsStyle from "assets/jss/material-dashboard-pro-react/views/buttonsStyle.jsx";
 import withStyles from "material-ui/styles/withStyles";
 import PropTypes from 'prop-types';
-import {select} from '@rematch/select'
+import {select} from '@rematch/select';
 import {connect} from "react-redux";
 
 const mapStateToProps = state => ({
@@ -48,9 +48,8 @@ class GroupTable extends React.Component {
               {/* use this button to add a edit kind of action */}
               <IconButton
                 onClick={() => {
-                  let obj = this.state.groups.find(o => o.id === group.id);
-                  this.props.setGroup(obj);
-                  dispatch(push("/groups/edit"))
+                  this.props.setGroup(group);
+                  this.props.history.push(`/groups/edit/${group.id}`);
                 }}
                 color="warningNoBackground"
                 customClass="edit">

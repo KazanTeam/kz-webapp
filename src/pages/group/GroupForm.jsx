@@ -26,18 +26,6 @@ import Danger from "components/Typography/Danger";
 
 class GroupForm extends React.Component {
 
-  // componentWillReceiveProps(nextProps) {
-  //   const {change} = this.props;
-  //   const values = nextProps.initialValues;
-  //   if (values !== null) {
-  //     for (let key in values) {
-  //       if (values.hasOwnProperty(key)) {
-  //         change(key, values[key])
-  //       }
-  //     }
-  //   }
-  // }
-
   render() {
     const {
       classes,
@@ -46,7 +34,6 @@ class GroupForm extends React.Component {
       error,
       pathName
     } = this.props;
-    console.log('this.props.initialValues', this.props.initialValues);
     
     return (
       <div className={classes.center}>
@@ -150,11 +137,15 @@ const mapState = state => ({
   initialValues: select.group.getGroup(state)
 });
 
+const mapDispatch = ({group: {setGroup}}) => ({
+  setGroup
+});
+
 export default compose(
   withStyles(registerPageStyle, {
     name: 'GroupForm'
   }),
-  connect(mapState),
+  connect(mapState, mapDispatch),
   reduxForm({
     form: 'GroupForm',
     enableReinitialize: true

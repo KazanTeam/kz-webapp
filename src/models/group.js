@@ -1,6 +1,7 @@
 import {dispatch} from '@rematch/core';
 import {push} from "react-router-redux";
-import groupService from 'services/GroupService.js'
+import groupService from 'services/GroupService.js';
+import {select} from '@rematch/select';
 
 /**
  * Hard code table values
@@ -43,8 +44,9 @@ export default {
         throw error;
       }
     },
-    async setGroup(payload) {
-      this.set({group: payload});
+    async setGroup(group) {
+      console.log(group);
+      this.set({group: group});
     }
   },
   selectors: {
