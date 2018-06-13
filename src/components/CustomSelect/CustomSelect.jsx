@@ -18,7 +18,6 @@ function CustomSelect({...props}) {
     placeholder,
     input
   } = props;
-  console.log(props);
   return (
     <FormControl
       fullWidth
