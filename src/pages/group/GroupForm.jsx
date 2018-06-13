@@ -23,24 +23,29 @@ import {Field, reduxForm} from "redux-form";
 import registerPageStyle from "assets/jss/material-dashboard-pro-react/views/registerPageStyle";
 import renderCustomInput from "components/RenderCustomInput/RenderCustomInput";
 import Danger from "components/Typography/Danger";
+import renderSelectField from "../../components/RenderSelectField/RenderSelectField";
+import Role from "../../resources/role";
 
 class GroupForm extends React.Component {
-
+  componentDidMount() {
+    if(!this.props.id) {
+      this.props.clear();
+    }
+  }
   render() {
     const {
       classes,
       handleSubmit,
       submitting,
       error,
-      pathName
+      id
     } = this.props;
-    
     return (
       <div className={classes.center}>
         <GridContainer justify="center">
           <ItemGrid xs={12} sm={6} md={5}>
             <RegularCard
-              cardTitle={pathName === '/groups/edit' ? 'Edit Group': 'Create Group'}
+              cardTitle={id ? 'Edit Group': 'Create Group'}
               titleAlign="center"
               customCardTitleClasses={classes.cardTitle}
               customCardClasses={classes.cardClasses}
@@ -111,7 +116,11 @@ class GroupForm extends React.Component {
                           name: "groupAlertBot"
                         }}
                       />
-
+                      {id ? ( <Field
+                        name="role"
+                        component={renderSelectField}
+                        data={Role}
+                      />) : ''}
                       <div className={classes.center}>
                         <Button round color="primary" type="submit" disabled={submitting}>
                           Get started
@@ -133,12 +142,14 @@ GroupForm.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const mapState = state => ({
-  initialValues: select.group.getGroup(state)
-});
+const mapState = (state) => {
+  return {
+    initialValues: select.group.getGroup(state)
+  }
+};
 
-const mapDispatch = ({group: {setGroup}}) => ({
-  setGroup
+const mapDispatch = ({group: {setGroup, clear}}) => ({
+  setGroup, clear
 });
 
 export default compose(

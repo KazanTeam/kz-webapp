@@ -23,17 +23,71 @@ import PropTypes from 'prop-types';
 import {select} from '@rematch/select';
 import {connect} from "react-redux";
 
+import groupService from 'services/GroupService.js';
+import update from 'immutability-helper';
+
 const mapStateToProps = state => ({
   groups: select.group.getGroups(state)
 });
 
-const mapDispatch = ({group: {setGroup}}) => ({
-  setGroup
+const mapDispatch = ({group: {setGroup, setGroups}}) => ({
+  setGroup, setGroups
 });
 
 class GroupTable extends React.Component {
+  componentDidMount() {
+    groupService.list().then(groups =>{
+      this.props.setGroups(groups);
+      this.setState(prevState => {
+          update(...prevState, {groups: {$set: groups.map((group, key) => {
+              return ({
+                id: group.id ? group.id : key,
+                name: group.name,
+                groupNotifyBot: group.groupNotifyBot,
+                groupAlertBot: group.groupAlertBot,
+                creator: group.creator,
+                actions: (
+                  // we've added some custom button actions
+                  <div className="actions-right">
+                    {/* use this button to add a edit kind of action */}
+                    <IconButton
+                      onClick={() => {
+                        this.props.setGroup(group);
+                        this.props.history.push(`/groups/edit/${group.id}`);
+                      }}
+                      color="warningNoBackground"
+                      customClass="edit">
+                      <Dvr/>
+                    </IconButton>{" "}
+                    {/* use this button to remove the data row */}
+                    <IconButton
+                      onClick={() => {
+                        let data = this.props.groups;
+                        data.find((o, i) => {
+                          if (o.id === key) {
+                            // here you should add some custom code so you can delete the data
+                            // from this component and from your server as well
+                            data.splice(i, 1);
+                            return true;
+                          }
+                          return false;
+                        });
+                        this.setState({data: data});
+                      }}
+                      color="dangerNoBackground"
+                      customClass="remove">
+                      <Close/>
+                    </IconButton>{" "}
+                  </div>
+                )
+              })
+            })}})
+      })
+    })
+  }
   constructor(props) {
     super(props);
+    console.log(this.props.groups);
     this.state = {
       groups: this.props.groups.map((group, key) => {
         return ({
@@ -58,7 +112,7 @@ class GroupTable extends React.Component {
               {/* use this button to remove the data row */}
               <IconButton
                 onClick={() => {
-                  var data = this.state.data;
+                  let data = this.props.groups;
                   data.find((o, i) => {
                     if (o.id === key) {
                       // here you should add some custom code so you can delete the data
@@ -82,7 +136,9 @@ class GroupTable extends React.Component {
   }
 
   render() {
+    console.log("render")
     console.log(this.props);
+    console.log(this.state);
     const {classes} = this.props;
     return (
       <GridContainer>

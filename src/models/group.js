@@ -1,31 +1,12 @@
 import {dispatch} from '@rematch/core';
 import {push} from "react-router-redux";
 import groupService from 'services/GroupService.js';
-import {select} from '@rematch/select';
-
-/**
- * Hard code table values
- * @type {*[]}
- */
-const initState = [
-  {id: 1, name: "Group 1", groupNotifyBot: 1, groupAlertBot: 1, creator: 1},
-  {id: 2, name: "Group 2", groupNotifyBot: 2, groupAlertBot: 2, creator: 1},
-  {id: 3, name: "Group 3", groupNotifyBot: 3, groupAlertBot: 3, creator: 1},
-  {id: 4, name: "Group 4", groupNotifyBot: 4, groupAlertBot: 4, creator: 1},
-  {id: 5, name: "Group 5", groupNotifyBot: 5, groupAlertBot: 5, creator: 1},
-  {id: 6, name: "Group 6", groupNotifyBot: 6, groupAlertBot: 6, creator: 1},
-  {id: 7, name: "Group 7", groupNotifyBot: 7, groupAlertBot: 7, creator: 1},
-];
+import {listGroup, groupDefault} from "../resources/Data";
 
 export default {
   state: {
-    groups: initState,
-    group: {
-      name: '',
-      groupNotifyBot: '',
-      groupAlertBot: '',
-      creator: ''
-    }
+    groups: [],
+    group: groupDefault
   },
   reducers: {
     set(state, payload) {
@@ -36,18 +17,29 @@ export default {
     }
   },
   effects: {
-    async groupAsync(payload) {
-      try {
-        await groupService.createGroup(payload);
-        return dispatch(push("/groups/list"))
-      } catch (error) {
-        throw error;
-      }
+    async createGroup(payload) {
+      await groupService.createGroup(payload);
+      return dispatch(push("/groups/list"))
     },
-    async setGroup(group) {
-      console.log(group);
+    async editGroup(payload) {
+      await groupService.editGroup(payload);
+      return dispatch(push("/groups/list"))
+    },
+    setGroup(group) {
       this.set({group: group});
+    },
+    clear() {
+      this.set({group: groupDefault})
+    },
+    setGroups(groups){
+      this.set({groups: groups})
+    },
+    initGroups() {
+      groupService.list().then(groups => {
+        this.set({groups: groups})
+      })
     }
+
   },
   selectors: {
     getGroup: (state) => {
@@ -55,6 +47,9 @@ export default {
     },
     getGroups: (state) => {
       return state.groups;
+    },
+    clear: () => {
+      return groupDefault;
     }
   }
 }

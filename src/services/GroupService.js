@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Auth } from 'aws-amplify';
+import {listGroup} from "../resources/Data";
 
 axios.interceptors.request.use(async (config) => {
   const authenToken = await Auth.currentSession();
@@ -21,15 +22,31 @@ class GroupService {
     await axios.post('/groups', group).then(resp => {
       return resp
     }).catch(error => {
+      console.log(error.response);
       return Promise.reject(error.response);
     })
   };
 
   list = async () => {
-    await axios.get('/users/groups').then(resp => {
-      return resp;
+    //
+    // await axios.get('/users/groups').then(resp => {
+    //   return resp;
+    // }).catch(error => {
+    //   return Promise.reject(error.response);
+    // })
+    return await listGroup
+  };
+
+  getGroupById = id => {
+    return listGroup.filter(group => group.id === id);
+  };
+
+  editGroup = async group => {
+    await axios.put("/groups/" + group.id, group)
+      .then(resp => {
+        return resp
     }).catch(error => {
-      return Promise.reject(error.response);
+      throw error.response
     })
   }
 }
