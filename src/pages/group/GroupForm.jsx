@@ -25,10 +25,17 @@ import renderCustomInput from "components/RenderCustomInput/RenderCustomInput";
 import Danger from "components/Typography/Danger";
 import renderSelectField from "../../components/RenderSelectField/RenderSelectField";
 import Role from "../../resources/role";
+import groupService from 'services/GroupService.js';
 
 class GroupForm extends React.Component {
   componentDidMount() {
-    if(!this.props.id) {
+    this.handleInitData()
+  }
+  handleInitData() {
+    if(this.props.id) {
+      const initData = groupService.findById(this.props.id);
+      this.props.initialize(initData[0])
+    }else {
       this.props.clear();
     }
   }
@@ -144,7 +151,7 @@ GroupForm.propTypes = {
 
 const mapState = (state) => {
   return {
-    initialValues: select.group.getGroup(state)
+    group: select.group.getGroups(state)
   }
 };
 

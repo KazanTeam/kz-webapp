@@ -8,7 +8,7 @@ import FormControl from "material-ui/Form/FormControl";
 import InputLabel from "material-ui/Input/InputLabel";
 import Select from "material-ui/Select";
 import MenuItem from "material-ui/Menu/MenuItem";
-import extendedFormsStyle from "assets/jss/material-dashboard-pro-react/views/extendedFormsStyle.jsx";
+import customSelectGroupStyle from "assets/jss/material-dashboard-pro-react/page/customSelectGroupStyle.jsx";
 
 function CustomSelect({...props}) {
   const {
@@ -67,4 +67,4 @@ CustomSelect.propTypes = {
   data: PropTypes.array.isRequired,
 };
 
-export default withStyles(extendedFormsStyle)(CustomSelect);
+export default withStyles(customSelectGroupStyle)(CustomSelect);

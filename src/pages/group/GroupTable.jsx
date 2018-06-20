@@ -4,7 +4,7 @@ import ReactTable from "react-table";
 
 // @material-ui/icons
 import Assignment from "@material-ui/icons/Assignment";
-import Dvr from "@material-ui/icons/Dvr";
+import Edit from "@material-ui/icons/Edit";
 import Close from "@material-ui/icons/Close";
 
 // core components
@@ -17,7 +17,8 @@ import {push} from "react-router-redux";
 import {dispatch} from '@rematch/core';
 import Button from "components/CustomButtons/Button.jsx";
 
-import buttonsStyle from "assets/jss/material-dashboard-pro-react/views/buttonsStyle.jsx";
+import groupTableStyle from "assets/jss/material-dashboard-pro-react/page/groupTableStyle.jsx";
+
 import withStyles from "material-ui/styles/withStyles";
 import PropTypes from 'prop-types';
 import {select} from '@rematch/select';
@@ -25,6 +26,7 @@ import {connect} from "react-redux";
 
 import groupService from 'services/GroupService.js';
 import update from 'immutability-helper';
+import SweetAlert from "react-bootstrap-sweetalert";
 
 const mapStateToProps = state => ({
   groups: select.group.getGroups(state)
@@ -35,8 +37,111 @@ const mapDispatch = ({group: {setGroup, setGroups}}) => ({
 });
 
 class GroupTable extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      groups: [],
+      alert: null
+    }
+  }
+
+  handleEdit = group => {
+    this.props.history.push(`/groups/edit/${group.id}`);
+  };
+
+  handleDelete = group => {
+    let data = this.state.groups;
+    groupService.deleteGroup(group.id).then(resp => {
+      if (resp.status === 204) {
+        data.find((o, i) => {
+          if (o.id === group.id) {
+            data.splice(i, 1);
+            return true;
+          }
+          return false;
+        });
+
+        this.props.setGroups(
+          this.props.groups.filter(item => item.id !== group.id)
+        );
+
+        this.setState({data: data});
+      }
+    });
+  };
+
+  warningWithConfirmAndCancelMessage = (group) => {
+    this.setState({
+      alert: (
+        <SweetAlert
+          warning
+          style={{display: "block", marginTop: "-100px"}}
+          title="Are you sure?"
+          onConfirm={() => this.successDelete(group)}
+          onCancel={() => this.cancelDelete()}
+          confirmBtnCssClass={
+            this.props.classes.button + " " + this.props.classes.success
+          }
+          cancelBtnCssClass={
+            this.props.classes.button + " " + this.props.classes.danger
+          }
+          confirmBtnText="Yes, delete it!"
+          cancelBtnText="Cancel"
+          showCancel
+        >
+        </SweetAlert>
+      )
+    });
+  };
+
+  successDelete = (group) => {
+    this.handleDelete(group);
+    this.setState({
+      alert: (
+        <SweetAlert
+          success
+          style={{display: "block", marginTop: "-100px"}}
+          title="Deleted!"
+          onConfirm={() => this.hideAlert()}
+          onCancel={() => this.hideAlert()}
+          confirmBtnCssClass={
+            this.props.classes.button + " " + this.props.classes.success
+          }
+        >
+          Group has been deleted.
+        </SweetAlert>
+      )
+    });
+  };
+
+  cancelDelete = () => {
+    this.setState({
+      alert: (
+        <SweetAlert
+          danger
+          style={{display: "block", marginTop: "-100px"}}
+          title="Cancelled"
+          onConfirm={() => this.hideAlert()}
+          onCancel={() => this.hideAlert()}
+          confirmBtnCssClass={
+            this.props.classes.button + " " + this.props.classes.success
+          }
+        >
+          Group is safe :)
+        </SweetAlert>
+      )
+    });
+  };
+
+  hideAlert = () => {
+    this.setState({
+      alert: null
+    });
+  };
+
+
   componentDidMount() {
-    groupService.list().then(groups =>{
+    groupService.list().then(groups => {
       this.props.setGroups(groups);
       const convertGroup = groups.map((group, key) => {
         return ({
@@ -46,33 +151,16 @@ class GroupTable extends React.Component {
           groupAlertBot: group.groupAlertBot,
           creator: group.creator,
           actions: (
-            // we've added some custom button actions
             <div className="actions-right">
-              {/* use this button to add a edit kind of action */}
               <IconButton
-                onClick={() => {
-                  this.props.setGroup(group);
-                  this.props.history.push(`/groups/edit/${group.id}`);
-                }}
-                color="warningNoBackground"
+                onClick={() => this.handleEdit(group)}
+                color="successNoBackground"
                 customClass="edit">
-                <Dvr/>
+                <Edit/>
               </IconButton>{" "}
-              {/* use this button to remove the data row */}
+
               <IconButton
-                onClick={() => {
-                  let data = this.props.groups;
-                  data.find((o, i) => {
-                    if (o.id === key) {
-                      // here you should add some custom code so you can delete the data
-                      // from this component and from your server as well
-                      data.splice(i, 1);
-                      return true;
-                    }
-                    return false;
-                  });
-                  this.setState({data: data});
-                }}
+                onClick={() => this.warningWithConfirmAndCancelMessage(group)}
                 color="dangerNoBackground"
                 customClass="remove">
                 <Close/>
@@ -81,20 +169,15 @@ class GroupTable extends React.Component {
           )
         })
       });
-      this.setState(prevState => update(prevState, { groups: {$set: convertGroup}}))
+      this.setState(prevState => update(prevState, {groups: {$set: convertGroup}}))
     })
-  }
-  constructor(props) {
-    super(props);
-    this.state = {
-      groups: []
-    }
   }
 
   render() {
     const {classes} = this.props;
     return (
       <GridContainer>
+        {this.state.alert}
         <ItemGrid xs={12}>
           <IconCard
             icon={Assignment}
@@ -105,7 +188,9 @@ class GroupTable extends React.Component {
                   <Button color="primary" customClass={classes.right}
                           onClick={() => {
                             dispatch(push('/groups/create'))
-                          }}>Create Group
+                          }
+                          }>
+                    Create Group
                   </Button>
                 </ItemGrid>
                 <ItemGrid xs={12}> <ReactTable
@@ -151,4 +236,4 @@ class GroupTable extends React.Component {
 GroupTable.propTypes = {
   classes: PropTypes.object.isRequired
 };
-export default connect(mapStateToProps, mapDispatch)(withStyles(buttonsStyle)(GroupTable));
+export default connect(mapStateToProps, mapDispatch)(withStyles(groupTableStyle)(GroupTable));

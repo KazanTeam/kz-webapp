@@ -19,12 +19,18 @@ axios.interceptors.request.use(async (config) => {
 
 class GroupService {
   createGroup = async group => {
-    await axios.post('/groups', group).then(resp => {
-      return resp
-    }).catch(error => {
-      console.log(error.response);
-      return Promise.reject(error.response);
-    })
+    try {
+      let response = await axios.post('/groups', group);
+      return response;
+    } catch (error) {
+      throw new Error(error.response.data);
+    }
+
+    // const response = await axios.post('/groups', group).then(resp => {
+    //   return resp
+    // }).catch(error => {
+    //   throw Error(error.response)
+    // })
   };
 
   list = async () => {
@@ -37,8 +43,8 @@ class GroupService {
     return await listGroup
   };
 
-  getGroupById = id => {
-    return listGroup.filter(group => group.id === id);
+  findById = id => {
+    return listGroup.filter(group => group.id === parseInt(id));
   };
 
   editGroup = async group => {
@@ -46,8 +52,12 @@ class GroupService {
       .then(resp => {
         return resp
     }).catch(error => {
-      throw error.response
+      throw new Error(error.response)
     })
+  }
+
+  deleteGroup = async id => {
+    return await Promise.resolve({message: '', status: 204})
   }
 }
 

@@ -2,6 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import GroupForm from "./GroupForm";
 import {SubmissionError} from "redux-form";
+import {push} from "react-router-redux";
 
 const mapDispatch = ({ group: { createGroup, editGroup } }) => ({
   createGroup,
@@ -10,16 +11,17 @@ const mapDispatch = ({ group: { createGroup, editGroup } }) => ({
 
 class Group extends React.Component {
 
-  handleSubmit = (data) => {
+  handleSubmit = async (data) => {
     const { match: { params: { id } }, editGroup, createGroup } = this.props;
     try {
       if(id) {
-        editGroup(data)
+        await editGroup(data)
       }else {
-        createGroup(data)
+        await createGroup(data)
       }
+      push("/groups/list")
     }catch(error){
-      throw new SubmissionError({_error: error.data})
+      throw new SubmissionError({_error: error.message})
     }
   };
 

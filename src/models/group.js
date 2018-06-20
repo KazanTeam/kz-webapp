@@ -1,7 +1,7 @@
 import {dispatch} from '@rematch/core';
 import {push} from "react-router-redux";
 import groupService from 'services/GroupService.js';
-import {listGroup, groupDefault} from "../resources/Data";
+import {groupDefault} from "../resources/Data";
 
 export default {
   state: {
@@ -18,6 +18,7 @@ export default {
   },
   effects: {
     async createGroup(payload) {
+      payload = {...payload, roleId: 1};
       await groupService.createGroup(payload);
       return dispatch(push("/groups/list"))
     },
@@ -31,15 +32,9 @@ export default {
     clear() {
       this.set({group: groupDefault})
     },
-    setGroups(groups){
+    setGroups(groups) {
       this.set({groups: groups})
-    },
-    initGroups() {
-      groupService.list().then(groups => {
-        this.set({groups: groups})
-      })
     }
-
   },
   selectors: {
     getGroup: (state) => {
