@@ -1,205 +1,31 @@
 import React from "react";
+import {connect} from "react-redux";
+import UserForm from "./UserForm";
+import {SubmissionError} from "redux-form";
 
-import withStyles from "material-ui/styles/withStyles";
-import InputAdornment from "material-ui/Input/InputAdornment";
-import Input from 'material-ui/Input/Input';
-
-// @material-ui/icons
-import PermIdentity from "@material-ui/icons/PermIdentity";
-
-// core components
-import GridContainer from "components/Grid/GridContainer.jsx";
-import ItemGrid from "components/Grid/ItemGrid.jsx";
-import IconCard from "components/Cards/IconCard.jsx";
-import Face from "@material-ui/icons/Face";
-import Email from "@material-ui/icons/Email";
-import Send from '@material-ui/icons/Send'
-import Button from "components/CustomButtons/Button.jsx";
-import Clearfix from "components/Clearfix/Clearfix.jsx";
-
-import compose from "recompose/compose";
-import {Field, reduxForm} from "redux-form";
-
-import 'react-phone-number-input/rrui.css'
-import 'react-phone-number-input/style.css'
-import PhoneNumber from 'react-phone-number-input'
-import customRegisterPageStyled from './styled.jsx'
-import renderCustomInput from "components/RenderCustomInput/RenderCustomInput";
+const mapDispatch = ({ user: { editUser } }) => ({
+    editUser
+});
 
 class User extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            checked: [],
-            phone: '',
-            lastname: "Truong"
-        };
-    }
+    handleSubmit = (data) => {
+        const { match: { params: { id } }, editUser } = this.props;
+        try {
+            editUser(data)
+        }catch(error){
+            console.log(error.data);
+            throw new SubmissionError({_error: error.data})
+        }
+    };
 
     render() {
-        const { classes, handleSubmit, submitting, error } = this.props;
-        return(
-            <div>
-                <GridContainer>
-                    <ItemGrid xs={12} sm={12} md={8}>
-                        <IconCard
-                            icon={PermIdentity}
-                            iconColor="rose"
-                            title="Edit Profile - "
-                            category="Complete your profile"
-                            content={
-                                <div>
-                                    <GridContainer justify="space-between">
-                                        <ItemGrid xs={12} sm={12} md={6}>
-                                            <Field
-                                                name="username"
-                                                component={renderCustomInput}
-                                                formControlProps={{
-                                                    fullWidth: true,
-                                                    className: classes.customFormControlClasses
-                                                }}
-                                                inputProps={{
-                                                    startAdornment: (
-                                                        <InputAdornment position="start"
-                                                                        className={classes.inputAdornment}
-                                                        >
-                                                            <Face className={classes.inputAdornmentIcon} />
-                                                        </InputAdornment>
-                                                    ),
-                                                    placeholder: "Username"
-                                                }}
-                                            />
-                                        </ItemGrid>
+        const { match: { params: { id } } } = this.props;
 
-                                        <ItemGrid xs={12} sm={12} md={6}>
-                                            <Field
-                                                name="email"
-                                                component={renderCustomInput}
-                                                formControlProps={{
-                                                    fullWidth: true,
-                                                    className: classes.customFormControlClasses
-                                                }}
-                                                inputProps={{
-                                                    startAdornment: (
-                                                        <InputAdornment
-                                                            position="start"
-                                                            className={classes.inputAdornment}
-                                                        >
-                                                            <Email className={classes.inputAdornmentIcon} />
-                                                        </InputAdornment>
-                                                    ),
-                                                    placeholder: "Email *"
-                                                }}
-                                            />
-                                        </ItemGrid>
-
-                                        <ItemGrid xs={12} sm={12} md={12}>
-                                            <Field
-                                                name="telegramUsername"
-                                                formControlProps={{
-                                                    fullWidth: true,
-                                                    className: classes.customFormControlClasses
-                                                }}
-                                                inputProps={{
-                                                    startAdornment: (
-                                                        <InputAdornment
-                                                            position="start"
-                                                            className={classes.inputAdornment}
-                                                        >
-                                                            <Send
-                                                                className={classes.inputAdornmentIcon}
-                                                            />
-                                                        </InputAdornment>
-                                                    ),
-                                                    placeholder: "TelegramID...",
-                                                }}
-                                                component={renderCustomInput}
-                                            />
-                                        </ItemGrid>
-
-                                        <ItemGrid xs={12} sm={11} md={11} className={classes.phoneNumber}>
-                                            <Field
-                                                name="phoneNumber"
-                                                formControlProps={{
-                                                    fullWidth: true,
-                                                    className: classes.customFormControlClasses
-                                                }}
-                                                component={(field) => (
-                                                    <PhoneNumber {...field.input}/>
-                                                )}
-                                            />
-                                        </ItemGrid>
-
-                                        <ItemGrid xs={12} sm={12} md={6}>
-                                            <Field
-                                                name="firstName"
-                                                formControlProps={{
-                                                    fullWidth: true,
-                                                    className: classes.customFormControlClasses
-                                                }}
-                                                inputProps={{
-                                                    startAdornment: (
-                                                        <InputAdornment
-                                                            position="start"
-                                                            className={classes.inputAdornment}
-                                                        >
-                                                            <Face
-                                                                className={classes.inputAdornmentIcon}
-                                                            />
-                                                        </InputAdornment>
-                                                    ),
-                                                    placeholder: "FirstName..."
-                                                }}
-                                                component={renderCustomInput}
-                                            />
-                                        </ItemGrid>
-
-                                        <ItemGrid xs={12} sm={12} md={6}>
-                                            <Field
-                                                name="lastName"
-                                                value={this.state.lastname}
-                                                formControlProps={{
-                                                    fullWidth: true,
-                                                    className: classes.customFormControlClasses
-                                                }}
-                                                inputProps={{
-                                                    startAdornment: (
-                                                        <InputAdornment
-                                                            position="start"
-                                                            className={classes.inputAdornment}
-                                                        >
-                                                            <Face
-                                                                className={classes.inputAdornmentIcon}
-                                                            />
-                                                        </InputAdornment>
-                                                    ),
-                                                    placeholder: "Last Name..."
-                                                }}
-                                                component={renderCustomInput}
-                                            />
-                                        </ItemGrid>
-                                    </GridContainer>
-                                    <Button color="rose" right>
-                                        Update Profile
-                                    </Button>
-                                    <Clearfix />
-                                </div>
-                            }
-                        />
-
-                    </ItemGrid>
-                </GridContainer>
-            </div>
+        return (
+            <UserForm onSubmit={this.handleSubmit} id={id}/>
         );
     }
 }
 
-export default compose(
-    withStyles(customRegisterPageStyled, {
-        name: 'User'
-    }),
-    reduxForm({
-        form: 'User'
-    })
-)( User);
+export default connect(null, mapDispatch)(User);
