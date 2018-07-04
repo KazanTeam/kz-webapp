@@ -1,5 +1,3 @@
-import {dispatch} from '@rematch/core';
-import {push} from "react-router-redux";
 import groupService from 'services/GroupService.js';
 import {groupDefault} from "../resources/Data";
 
@@ -20,11 +18,9 @@ export default {
     async createGroup(payload) {
       payload = {...payload, roleId: 1};
       await groupService.createGroup(payload);
-      return dispatch(push("/groups/list"))
     },
     async editGroup(payload) {
       await groupService.editGroup(payload);
-      return dispatch(push("/groups/list"))
     },
     setGroup(group) {
       this.set({group: group});

@@ -44,7 +44,7 @@ class GroupService {
   };
 
   findById = id => {
-    return listGroup.filter(group => group.id === parseInt(id));
+    return listGroup.filter(group => group.id === parseInt(id))[0];
   };
 
   editGroup = async group => {
@@ -54,7 +54,7 @@ class GroupService {
     }).catch(error => {
       throw new Error(error.response)
     })
-  }
+  };
 
   deleteGroup = async id => {
     return await Promise.resolve({message: '', status: 204})

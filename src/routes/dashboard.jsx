@@ -3,7 +3,7 @@ import Dashboard from "pages/dashboard/Dashboard.jsx";
 // @material-ui/icons
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import ContentPaste from "@material-ui/icons/ContentPaste";
-import Group from "pages/group/Group";
+import Group from "pages/group";
 import GroupTable from "pages/group/GroupTable";
 
 // var pages = [
@@ -27,7 +27,7 @@ import GroupTable from "pages/group/GroupTable";
 //   }
 // ].concat(pagesRoutes);
 
-var dashRoutes = [
+const dashRoutes = [
   {
     path: "/dashboard",
     name: "Dashboard",

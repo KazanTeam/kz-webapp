@@ -1,37 +1,32 @@
 import React from "react";
-import {connect} from "react-redux";
-import GroupForm from "./GroupForm";
-import {SubmissionError} from "redux-form";
-import {push} from "react-router-redux";
-
-const mapDispatch = ({ group: { createGroup, editGroup } }) => ({
-  createGroup,
-  editGroup
-});
+import GridContainer from "components/Grid/GridContainer.jsx";
+import ItemGrid from "components/Grid/ItemGrid.jsx";
+import GroupEdit from "./edit/GroupEdit";
+import GroupCreate from "./create/GroupCreate";
+import registerPageStyle from "assets/jss/material-dashboard-pro-react/views/registerPageStyle";
+import withStyles from "material-ui/styles/withStyles";
+import PropTypes from "prop-types";
 
 class Group extends React.Component {
-
-  handleSubmit = async (data) => {
-    const { match: { params: { id } }, editGroup, createGroup } = this.props;
-    try {
-      if(id) {
-        await editGroup(data)
-      }else {
-        await createGroup(data)
-      }
-      push("/groups/list")
-    }catch(error){
-      throw new SubmissionError({_error: error.message})
-    }
-  };
-
   render() {
-    const { match: { params: { id } } } = this.props;
+    const { match: { params: { id } }, classes } = this.props;
 
     return (
-      <GroupForm onSubmit={this.handleSubmit} id={id}/>
+      <div className={classes.center}>
+        <GridContainer justify="center">
+          <ItemGrid xs={12} sm={6} md={5}>
+            {
+              id ? <GroupEdit classes={classes} id={id}/> : <GroupCreate classes={classes}/>
+            }
+          </ItemGrid>
+        </GridContainer>
+      </div>
     );
   }
 }
 
-export default connect(null, mapDispatch)(Group);
+GroupCreate.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(registerPageStyle)(Group)
