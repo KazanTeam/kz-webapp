@@ -56,6 +56,7 @@ class UserForm extends React.Component {
                                             </div>
                                             <ItemGrid xs={12} sm={12} md={6}>
                                                 <Field
+                                                    disabled
                                                     name="username"
                                                     component={renderCustomInput}
                                                     formControlProps={{
@@ -70,7 +71,8 @@ class UserForm extends React.Component {
                                                                 <Face className={classes.inputAdornmentIcon} />
                                                             </InputAdornment>
                                                         ),
-                                                        placeholder: "Username"
+                                                        placeholder: "Username",
+                                                        disabled: true
                                                     }}
                                                 />
                                             </ItemGrid>
