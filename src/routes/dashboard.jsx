@@ -4,7 +4,7 @@ import Dashboard from "pages/dashboard/Dashboard.jsx";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import ContentPaste from "@material-ui/icons/ContentPaste";
 import Group from "pages/group";
-import GroupTable from "pages/group/table";
+import GroupTable from "pages/group/GroupTable";
 
 // var pages = [
 //   {
@@ -27,7 +27,7 @@ import GroupTable from "pages/group/table";
 //   }
 // ].concat(pagesRoutes);
 
-var dashRoutes = [
+const dashRoutes = [
   {
     path: "/dashboard",
     name: "Dashboard",
@@ -44,7 +44,7 @@ var dashRoutes = [
   // },
   { path: "/groups/list", name: "Groups", icon: ContentPaste, component: GroupTable },
   { path: "/groups/create", name: "Create Group", icon: ContentPaste, component: Group , invisible: true},
-  { path: "/groups/edit", name: "Edit Group", icon: ContentPaste, component: Group , invisible: true},
+  { path: "/groups/edit/:id", name: "Edit Group", icon: ContentPaste, component: Group , invisible: true},
   // { path: "/create", name: "Create Group", icon: ContentPaste, component: Group , invisible: true},
   // {
   //   collapse: true,

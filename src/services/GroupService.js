@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Auth } from 'aws-amplify';
+import {listGroup} from "../resources/Data";
 
 axios.interceptors.request.use(async (config) => {
   const authenToken = await Auth.currentSession();
@@ -18,19 +19,45 @@ axios.interceptors.request.use(async (config) => {
 
 class GroupService {
   createGroup = async group => {
-    await axios.post('/groups', group).then(resp => {
-      return resp
-    }).catch(error => {
-      return Promise.reject(error.response);
-    })
+    try {
+      let response = await axios.post('/groups', group);
+      return response;
+    } catch (error) {
+      throw new Error(error.response.data);
+    }
+
+    // const response = await axios.post('/groups', group).then(resp => {
+    //   return resp
+    // }).catch(error => {
+    //   throw Error(error.response)
+    // })
   };
 
   list = async () => {
-    await axios.get('/users/groups').then(resp => {
-      return resp;
+    //
+    // await axios.get('/users/groups').then(resp => {
+    //   return resp;
+    // }).catch(error => {
+    //   return Promise.reject(error.response);
+    // })
+    return await listGroup
+  };
+
+  findById = id => {
+    return listGroup.filter(group => group.id === parseInt(id))[0];
+  };
+
+  editGroup = async group => {
+    await axios.put("/groups/" + group.id, group)
+      .then(resp => {
+        return resp
     }).catch(error => {
-      return Promise.reject(error.response);
+      throw new Error(error.response)
     })
+  };
+
+  deleteGroup = async id => {
+    return await Promise.resolve({message: '', status: 204})
   }
 }
 
