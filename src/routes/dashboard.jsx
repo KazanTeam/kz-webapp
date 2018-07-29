@@ -4,8 +4,8 @@ import Dashboard from "pages/dashboard/Dashboard.jsx";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import ContentPaste from "@material-ui/icons/ContentPaste";
 import Group from "pages/group";
-import GroupTable from "pages/group/GroupTable";
-
+import GroupTable from "pages/group/GroupTable"
+import GroupDetails from "pages/group/manage/GroupDetails"
 // var pages = [
 //   {
 //     path: "/timeline-page",
@@ -45,6 +45,7 @@ const dashRoutes = [
   { path: "/groups/list", name: "Groups", icon: ContentPaste, component: GroupTable },
   { path: "/groups/create", name: "Create Group", icon: ContentPaste, component: Group , invisible: true},
   { path: "/groups/edit/:id", name: "Edit Group", icon: ContentPaste, component: Group , invisible: true},
+  { path: "/groups/manage/:id", name: "Manage Group", icon: ContentPaste, component: GroupDetails , invisible: true},
   // { path: "/create", name: "Create Group", icon: ContentPaste, component: Group , invisible: true},
   // {
   //   collapse: true,
