@@ -1,4 +1,5 @@
-import {Auth} from 'aws-amplify';
+import {Auth, API} from 'aws-amplify';
+import {users} from "../resources/Data";
 
 class UserService {
 
@@ -20,6 +21,10 @@ class UserService {
 
   getAccessToken = () => {
     return localStorage.getItem('access_token')
+  };
+
+  list = async () => {
+    return await users
   }
 }
 

@@ -12,36 +12,20 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import ItemGrid from "components/Grid/ItemGrid.jsx";
 import IconCard from "components/Cards/IconCard.jsx";
 import IconButton from "components/CustomButtons/IconButton.jsx";
-
 import {push} from "react-router-redux";
 import {dispatch} from '@rematch/core';
 import Button from "components/CustomButtons/Button.jsx";
-
 import groupTableStyle from "assets/jss/material-dashboard-pro-react/page/groupTableStyle.jsx";
-
 import withStyles from "material-ui/styles/withStyles";
-import PropTypes from 'prop-types';
-import {select} from '@rematch/select';
-import {connect} from "react-redux";
-
-import groupService from 'services/GroupService.js';
+import userService from 'services/UserService.js';
 import update from 'immutability-helper';
 import SweetAlert from "react-bootstrap-sweetalert";
-import {Link} from "react-router-dom";
 
-const mapStateToProps = state => ({
-  groups: select.group.getGroups(state)
-});
-
-const mapDispatch = ({group: {setGroup, setGroups}}) => ({
-  setGroup, setGroups
-});
-
-class GroupTable extends React.Component {
+class MemberTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      groups: [],
+      users: [],
       alert: null
     }
   }
@@ -51,24 +35,24 @@ class GroupTable extends React.Component {
   };
 
   handleDelete = group => {
-    let data = this.state.groups;
-    groupService.deleteGroup(group.id).then(resp => {
-      if (resp.status === 204) {
-        data.find((o, i) => {
-          if (o.id === group.id) {
-            data.splice(i, 1);
-            return true;
-          }
-          return false;
-        });
-
-        this.props.setGroups(
-          this.props.groups.filter(item => item.id !== group.id)
-        );
-
-        this.setState({data: data});
-      }
-    });
+    // let data = this.state.groups;
+    // groupService.deleteGroup(group.id).then(resp => {
+    //   if (resp.status === 204) {
+    //     data.find((o, i) => {
+    //       if (o.id === group.id) {
+    //         data.splice(i, 1);
+    //         return true;
+    //       }
+    //       return false;
+    //     });
+    //
+    //     this.props.setGroups(
+    //       this.props.groups.filter(item => item.id !== group.id)
+    //     );
+    //
+    //     this.setState({data: data});
+    //   }
+    // });
   };
 
   warningWithConfirmAndCancelMessage = (group) => {
@@ -142,26 +126,28 @@ class GroupTable extends React.Component {
 
 
   componentDidMount() {
-    groupService.list().then(groups => {
-      this.props.setGroups(groups);
-      const convertGroup = groups.map((group, key) => {
+    const {match} = this.props;
+    userService.list().then(users => {
+      // this.props.setUsers(groups);
+      const convertUsers = users.map((user, key) => {
         return ({
-          id: group.id ? group.id : key,
-          name: <Link to={`/groups/manage/${group.id}`}> {group.name}</Link>,
-          groupNotifyBot: group.groupNotifyBot,
-          groupAlertBot: group.groupAlertBot,
-          creator: group.creator,
+          id: user.id ? user.id : key,
+          username: user.username,
+          status: user.status,
+          enabled: user.enabled ? "ENABLED" : "DISABLED",
+          firstName: user.firstName,
+          lastName: user.lastName,
           actions: (
             <div className="actions-right">
               <IconButton
-                onClick={() => this.handleEdit(group)}
+                onClick={() => this.handleEdit(user)}
                 color="successNoBackground"
                 customClass="edit">
                 <Edit/>
               </IconButton>{" "}
 
               <IconButton
-                onClick={() => this.warningWithConfirmAndCancelMessage(group)}
+                onClick={() => this.warningWithConfirmAndCancelMessage(user)}
                 color="dangerNoBackground"
                 customClass="remove">
                 <Close/>
@@ -170,7 +156,7 @@ class GroupTable extends React.Component {
           )
         })
       });
-      this.setState(prevState => update(prevState, {groups: {$set: convertGroup}}))
+      this.setState(prevState => update(prevState, {users: {$set: convertUsers}}))
     })
   }
 
@@ -182,7 +168,7 @@ class GroupTable extends React.Component {
         <ItemGrid xs={12}>
           <IconCard
             icon={Assignment}
-            title="Group Table"
+            title="Members"
             content={
               <GridContainer>
                 <ItemGrid xs={12}>
@@ -191,28 +177,32 @@ class GroupTable extends React.Component {
                             dispatch(push('/groups/create'))
                           }
                           }>
-                    Create Group
+                    Add Member
                   </Button>
                 </ItemGrid>
                 <ItemGrid xs={12}> <ReactTable
-                  data={this.state.groups}
+                  data={this.state.users}
                   filterable
                   columns={[
                     {
-                      Header: "Name",
-                      accessor: "name",
+                      Header: "User name",
+                      accessor: "username",
                     },
                     {
-                      Header: "Notify Bot",
-                      accessor: "groupNotifyBot"
+                      Header: "Status",
+                      accessor: "status"
                     },
                     {
-                      Header: "Alert Bot",
-                      accessor: "groupAlertBot"
+                      Header: "Enabled",
+                      accessor: "enabled"
                     },
                     {
-                      Header: "Link Join Group",
-                      accessor: "creator"
+                      Header: "First Name",
+                      accessor: "firstName"
+                    },
+                    {
+                      Header: "Last Name",
+                      accessor: "lastName"
                     },
                     {
                       Header: "Actions",
@@ -234,7 +224,4 @@ class GroupTable extends React.Component {
   }
 }
 
-GroupTable.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-export default connect(mapStateToProps, mapDispatch)(withStyles(groupTableStyle)(GroupTable));
+export default withStyles(groupTableStyle)(MemberTable);
