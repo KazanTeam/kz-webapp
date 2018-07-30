@@ -45,7 +45,7 @@ class UserForm extends React.Component {
                         <IconCard
                             icon={PermIdentity}
                             iconColor="rose"
-                            title="Edit Profile - "
+                            title="My Profile - "
                             category="Complete your profile"
                             content={
                                 <div>
