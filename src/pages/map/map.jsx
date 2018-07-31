@@ -1,6 +1,5 @@
 import React from "react";
 // react plugin for creating vector maps
-
 // core components
 import GridContainer from "components/Grid/GridContainer.jsx";
 import ItemGrid from "components/Grid/ItemGrid.jsx";
