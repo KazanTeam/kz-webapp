@@ -16,14 +16,16 @@ export default {
   effects: {
     async registerAsync(payload) {
       try {
-        const {username, email, password, telegramUsername, phoneNumber} = payload;
+        const {username, email, password, telegramUsername, phoneNumber, firstName, lastName} = payload;
         await Auth.signUp({
           username,
           password,
           attributes: {
             'email': email,
             'phone_number': phoneNumber,
-            'nickname': telegramUsername
+            'nickname': telegramUsername,
+            'given_name': lastName,
+            'name': firstName
           }
         });
         dispatch.verification.setCredential({

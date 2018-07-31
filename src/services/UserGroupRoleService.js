@@ -51,9 +51,9 @@ class GroupService {
     await axios.put("/groups/" + group.id, group)
       .then(resp => {
         return resp
-    }).catch(error => {
-      throw new Error(error.response)
-    })
+      }).catch(error => {
+        throw new Error(error.response)
+      })
   };
 
   deleteGroup = async id => {
