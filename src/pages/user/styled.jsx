@@ -6,7 +6,7 @@ const customRegisterPageStyled = {
         marginTop: "35px"
     },
     phoneNumber: {
-        marginLeft: "26px",
+        marginLeft: "11px",
         marginTop: "30px"
     }
 };

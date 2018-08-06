@@ -32,7 +32,6 @@ class GroupEdit extends React.Component {
   };
 
   render() {
-    console.log("render");
     const { classes, id } = this.props;
 
     return (

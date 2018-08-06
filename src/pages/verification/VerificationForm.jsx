@@ -19,7 +19,7 @@ import renderCustomInput from "components/RenderCustomInput/RenderCustomInput";
 class VerificationForm extends React.Component {
 
   render() {
-    const { classes, handleSubmit, handleResend, error } = this.props;
+    const { classes, handleSubmit, onResend, error } = this.props;
     return (
       <div className={classes.container} >
         <GridContainer justify="center" spacing={8}>
@@ -55,7 +55,7 @@ class VerificationForm extends React.Component {
                     <Button round color="primary" type="submit">
                       Verify
                     </Button>
-                    <Button round color="primary" onClick={handleResend}>
+                    <Button round color="primary" onClick={onResend}>
                       Resend
                     </Button>
                   </div>

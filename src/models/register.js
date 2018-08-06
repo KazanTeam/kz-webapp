@@ -1,7 +1,7 @@
 import {Auth} from 'aws-amplify';
 import {dispatch} from '@rematch/core';
 import {push} from 'react-router-redux';
-
+import UserService from "../services/UserService";
 export default {
   state: {
     username: '',
@@ -11,13 +11,14 @@ export default {
     phoneNumber: '',
     firstName: '',
     lastName: '',
+    name: '',
   },
   reducers: {},
   effects: {
     async registerAsync(payload) {
       try {
         const {username, email, password, telegramUsername, phoneNumber, firstName, lastName} = payload;
-        await Auth.signUp({
+        const response = await Auth.signUp({
           username,
           password,
           attributes: {
@@ -25,9 +26,13 @@ export default {
             'phone_number': phoneNumber,
             'nickname': telegramUsername,
             'given_name': lastName,
-            'name': firstName
+            'family_name': firstName,
+            'name': firstName + ' ' + lastName
           }
         });
+
+        payload.userId = response.userSub;
+        UserService.createUser(payload);
         dispatch.verification.setCredential({
           username: username,
           password: password

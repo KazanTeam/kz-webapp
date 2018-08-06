@@ -51,9 +51,6 @@ class UserForm extends React.Component {
                                 <div>
                                     <form className={classes.form} onSubmit={handleSubmit}>
                                         <GridContainer justify="space-between">
-                                            <div className={classes.center}>
-                                                <Danger>{error}</Danger>
-                                            </div>
                                             <ItemGrid xs={12} sm={12} md={6}>
                                                 <Field
                                                     disabled
@@ -101,7 +98,7 @@ class UserForm extends React.Component {
 
                                             <ItemGrid xs={12} sm={12} md={12}>
                                                 <Field
-                                                    name="telegramUsername"
+                                                    name="nickname"
                                                     formControlProps={{
                                                         fullWidth: true,
                                                         className: classes.customFormControlClasses
@@ -123,9 +120,9 @@ class UserForm extends React.Component {
                                                 />
                                             </ItemGrid>
 
-                                            <ItemGrid xs={12} sm={11} md={11} className={classes.phoneNumber}>
+                                            <ItemGrid xs={12} sm={12} md={12} className={classes.phoneNumber}>
                                                 <Field
-                                                    name="phoneNumber"
+                                                    name="phone_number"
                                                     formControlProps={{
                                                         fullWidth: true,
                                                         className: classes.customFormControlClasses
@@ -138,7 +135,7 @@ class UserForm extends React.Component {
 
                                             <ItemGrid xs={12} sm={12} md={6}>
                                                 <Field
-                                                    name="firstName"
+                                                    name="family_name"
                                                     formControlProps={{
                                                         fullWidth: true,
                                                         className: classes.customFormControlClasses
@@ -162,7 +159,7 @@ class UserForm extends React.Component {
 
                                             <ItemGrid xs={12} sm={12} md={6}>
                                                 <Field
-                                                    name="lastName"
+                                                    name="given_name"
                                                     formControlProps={{
                                                         fullWidth: true,
                                                         className: classes.customFormControlClasses
@@ -184,6 +181,9 @@ class UserForm extends React.Component {
                                                 />
                                             </ItemGrid>
                                         </GridContainer>
+                                        <div className={classes.center}>
+                                          <Danger>{error}</Danger>
+                                        </div>
                                         <Button color="rose" right type="submit" disabled={submitting}>
                                             Update Profile
                                         </Button>
@@ -206,7 +206,7 @@ UserForm.propTypes = {
 
 const mapState = (state) => {
     return {
-        initialValues: select.user.getUser(state)
+        initialValues: select.app.getUserAttributes(state)
     }
 };
 
