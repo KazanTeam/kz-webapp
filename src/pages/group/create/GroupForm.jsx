@@ -14,10 +14,6 @@ import renderCustomInput from "components/RenderCustomInput/RenderCustomInput";
 import Danger from "components/Typography/Danger";
 
 class GroupForm extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     const {
       classes,
@@ -32,7 +28,7 @@ class GroupForm extends React.Component {
         </div>
         <form className={classes.form} onSubmit={handleSubmit}>
           <Field
-            name="name"
+            name="groupName"
             formControlProps={{
               fullWidth: true,
               className: classes.customFormControlClasses

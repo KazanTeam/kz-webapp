@@ -7,7 +7,8 @@ class PictureUpload extends React.Component {
     super(props);
     this.state = {
       file: null,
-      imagePreviewUrl: defaultImage
+      imagePreviewUrl: defaultImage,
+      title: 'Choose Picture'
     };
     this.handleImageChange = this.handleImageChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -31,6 +32,7 @@ class PictureUpload extends React.Component {
     // you have to call it yourself
   }
   render() {
+    const {title} = this.props;
     return (
       <div className="picture-container">
         <div className="picture">
@@ -41,7 +43,7 @@ class PictureUpload extends React.Component {
           />
           <input type="file" onChange={e => this.handleImageChange(e)} />
         </div>
-        <h6 className="description">Choose Picture</h6>
+        <h6 className="description">{title ? title : this.state.title}</h6>
       </div>
     );
   }

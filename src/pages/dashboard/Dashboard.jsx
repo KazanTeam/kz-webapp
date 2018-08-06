@@ -8,8 +8,6 @@ import dashboardStyle from "assets/jss/material-dashboard-pro-react/views/dashbo
 
 import VectorMaps from "../map/map";
 import {Bar} from 'react-chartjs-2';
-import {cities} from "../../resources/Data";
-
 const data = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', "August", "September", "October"],
   datasets: [
@@ -44,7 +42,6 @@ class Dashboard extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
     return (
       <div>
         <VectorMaps ref="map"/>

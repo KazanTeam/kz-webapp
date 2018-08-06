@@ -19,7 +19,7 @@ const users = [
 ];
 
 const groupDefault = {
-  name: '',
+  groupName: '',
   groupNotifyBot: '',
   groupAlertBot: '',
   creator: '',

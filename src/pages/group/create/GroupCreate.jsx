@@ -7,7 +7,8 @@ import {push} from "react-router-redux";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import ItemGrid from "components/Grid/ItemGrid.jsx";
 import RegularCard from "components/Cards/RegularCard.jsx";
-
+import {dispatch} from "@rematch/core";
+import GroupService from "../../../services/GroupService";
 const mapDispatch = ({ group: { createGroup, clear } }) => ({
   createGroup, clear
 });
@@ -19,10 +20,9 @@ class GroupCreate extends React.Component {
   }
 
   handleSubmit = async (data) => {
-    const { createGroup } = this.props;
     try {
-      await createGroup(data);
-      push("/groups/list")
+      await GroupService.createGroup(data);
+      return dispatch(push("/groups/list"))
     }catch(error){
       throw new SubmissionError({_error: error.message})
     }

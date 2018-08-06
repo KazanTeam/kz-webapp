@@ -19,9 +19,6 @@ import Role from "../../../resources/role";
 import Danger from "../../../components/Typography/Danger";
 
 class GroupFormEdit extends React.Component {
-  constructor(props) {
-    super(props)
-  }
   componentDidMount() {
     this.props.initialize(this.props.group)
   }
@@ -31,10 +28,8 @@ class GroupFormEdit extends React.Component {
       classes,
       handleSubmit,
       submitting,
-      id,
       error
     } = this.props;
-    console.log(id);
     return (
       <div>
         <div className={classes.center}>

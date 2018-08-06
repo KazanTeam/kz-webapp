@@ -26,6 +26,9 @@ import {push} from "react-router-redux";
 import { dispatch } from '@rematch/core';
 import {Auth} from "aws-amplify";
 
+import {select} from '@rematch/select';
+import {connect} from "react-redux";
+
 var ps;
 
 // We've created this component so we can have a ref to the wrapper of the links that appears in our sidebar.
@@ -34,6 +37,7 @@ var ps;
 // the links, and couldn't initialize the plugin.
 class SidebarWrapper extends React.Component {
   componentDidMount() {
+
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(this.refs.sidebarWrapper, {
         suppressScrollX: true,
@@ -57,6 +61,13 @@ class SidebarWrapper extends React.Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  user: select.app.getUser(state)
+});
+
+const mapDispatch = ({app: {set}}) => ({
+  set
+});
 
 class Sidebar extends React.Component {
   constructor(props) {
@@ -69,11 +80,18 @@ class Sidebar extends React.Component {
       openMaps: this.activeRoute("/maps"),
       openPages: this.activeRoute("-page"),
       openGroups: this.activeRoute("/groups"),
-      miniActive: true
+      miniActive: true,
+      user: {}
     };
     this.activeRoute.bind(this);
   }
   // verifies if routeName is the one active (in browser input)
+  async componentDidMount() {
+    if(!this.props.user) {
+      const user = await Auth.currentAuthenticatedUser();
+      this.props.set({user: user})
+    }
+  }
   activeRoute(routeName) {
     return this.props.location.pathname.indexOf(routeName) > -1 ? true : false;
   }
@@ -91,7 +109,7 @@ class Sidebar extends React.Component {
       logoText,
       routes,
       bgColor,
-      rtlActive
+      rtlActive,
     } = this.props;
     const itemText =
       classes.itemText +
@@ -149,7 +167,7 @@ class Sidebar extends React.Component {
               onClick={() => this.openCollapse("openAvatar")}
             >
               <ListItemText
-                primary={rtlActive ? "تانيا أندرو" : "Tania Andrew"}
+                primary={this.props.user ? this.props.user.attributes.name : ''}
                 secondary={
                   <b
                     className={
@@ -190,10 +208,10 @@ class Sidebar extends React.Component {
                     }
                   >
                     <span className={collapseItemMini}>
-                      {rtlActive ? "و" : "S"}
+                      {"S"}
                     </span>
                     <ListItemText
-                      primary={rtlActive ? "إعدادات" : "Logout"}
+                      primary={"Logout"}
                       disableTypography={true}
                       className={collapseItemText}
                       onClick={() => {
@@ -483,4 +501,4 @@ Sidebar.propTypes = {
   routes: PropTypes.arrayOf(PropTypes.object)
 };
 
-export default withStyles(sidebarStyle)(Sidebar);
+export default connect(mapStateToProps, mapDispatch)(withStyles(sidebarStyle)(Sidebar));

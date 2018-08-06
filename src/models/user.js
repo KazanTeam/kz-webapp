@@ -1,15 +1,14 @@
-import {dispatch} from '@rematch/core';
-import {push} from "react-router-redux";
 import { Auth } from 'aws-amplify';
-import * as AmazonCognitoIdentity from 'amazon-cognito-identity-js';
-
+import {select} from '@rematch/select'
+import {dispatch} from '@rematch/core'
 const userDefault = {
-    username: 'truongnx0111',
-    email: 'truongnx0111@gmail.com',
-    telegramUsername: '',
-    phoneNumber: '01655435471',
-    firstName: 'Nguyen',
-    lastName: 'Truong',
+    username: '',
+    email: '',
+    nickname: '',
+    phone_number: '',
+    family_name: '',
+    given_name: '',
+    avatar: '',
 };
 
 export default {
@@ -26,26 +25,28 @@ export default {
         }
     },
     effects: {
-
-        async editUser(payload) {
+        async editUser(payload, state) {
             try {
-                let cognitoUser = await Auth.currentAuthenticatedUser();
-                const {email, telegramUsername, phoneNumber} = payload;
-                var attributeList = [];
-                var _email = new AmazonCognitoIdentity.CognitoUserAttribute({Name : 'email', Value : email});
-                var _nickname = new AmazonCognitoIdentity.CognitoUserAttribute({Name : 'nickname', Value : telegramUsername});
-                var _phoneNuber = new AmazonCognitoIdentity.CognitoUserAttribute({Name : 'phone_number', Value : phoneNumber});
-                attributeList.push(_email);
-                attributeList.push(_nickname);
-                attributeList.push(_phoneNuber);
-                cognitoUser.updateAttributes(attributeList, function(err, result) {
-                    if (err) {
-                        console.log(err.message || JSON.stringify(err));
-                        return;
+                let user = select.app.getUser(state);
+                const attributes = user.attributes;
+                let _attributes = {};
+                Object.keys(payload).map(key => {
+                    if(key !== 'username') {
+                      if(attributes[key] !== payload[key]) {
+                        return _attributes[key] = payload[key];
+                      }
                     }
-                    // console.log('call result: ' + result);
                 });
-                return dispatch(push("/users/profile"))
+                if(_attributes.given_name || _attributes.family_name) {
+                    _attributes.name = `${payload.family_name} ${payload.given_name}`
+                }
+                const response = await Auth.updateUserAttributes(user, _attributes);
+                Object.keys(_attributes).map(key => {
+                    user.attributes[key] = _attributes[key]
+                });
+                dispatch.app.set({user: user});
+
+                return response
             } catch (err) {
                 throw err;
             }

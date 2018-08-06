@@ -16,8 +16,8 @@ export default {
   },
   effects: {
     async createGroup(payload) {
-      payload = {...payload, roleId: 1};
-      await groupService.createGroup(payload);
+      const response = await groupService.createGroup(payload)
+      return response;
     },
     async editGroup(payload) {
       await groupService.editGroup(payload);
